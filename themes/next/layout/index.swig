@@ -4,9 +4,12 @@
 
 {% block title %} {{ config.title }} {% endblock %}
 
+
 {% block page_class %}
   {% if is_home() %} page-home {% endif %}
 {% endblock %}
+
+dddd
 
 {% block content %}
   <section id="posts" class="posts-expand">

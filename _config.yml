@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: ssbunny'blog
-subtitle: 我的
-description:
-author: zhangqiang
+title: ssbunny' blog
+subtitle:
+description: Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。
+author: 绿豆爸爸
 language: zh-Hans
 timezone:
 avatar: /images/avatar.jpeg
