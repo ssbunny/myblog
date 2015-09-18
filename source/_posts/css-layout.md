@@ -469,6 +469,49 @@ tags:
 来计算相应的高度。当然，如果你能撇开那些使用古老浏览器的用户不管，你还可以使用 `css3`
 实现此效果：
 
+可以使用 `flex` 布局，这种方式目前只有 webkit 支持：
+
+<style>
+.c22 {
+    height: 100%;
+
+    display: -moz-box;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+
+    display: box;
+    box-pack: center;
+    box-align: center;
+}
+.c22 .content {
+    height: 100px;
+    width: 300px;
+    background-color: blue;
+}
+.c23 {
+    height: 100%;
+    display: -webkit-flex;
+    display:         flex;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+}
+.c23 .content {
+    height: 100px;
+    width: 300px;
+    background-color: blue;
+}
+</style>
+
+``` css.c23 {    height: 100%;    display: -webkit-flex;    display:         flex;    -webkit-align-items: center;            align-items: center;    -webkit-justify-content: center;            justify-content: center;}.c23 .content {    height: 100px;    width: 300px;    background-color: blue;}
+`````` html<div class="demo">    <div class="c23">        <div class="content"></div>    </div></div>```效果如下：<div class="demo"><div class="c23"><div class="content"></div></div></div>
+或是：
+
 ``` css
 .c22 {
     height: 100%;
@@ -503,29 +546,8 @@ tags:
 
 效果如下：
 
-<style>
-.c22 {
-    height: 100%;
 
-    display:-moz-box;
-    -moz-box-pack:center;
-    -moz-box-align:center;
-
-    display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
-
-    display: box;
-    box-pack: center;
-    box-align: center;
-}
-.c22 .content {
-    /* 此处为模拟的尺寸，实际场景中根据内容撑起。 */
-    height: 100px;
-    width: 300px;
-    background-color: blue;
-}
-</style>
 
 <div class="demo"><div class="c22"><div class="content"></div></div></div>
 (ps: 目前只有较新版本的 Firefox、Safari、Opera 以及 Chrome 支持此效果)
+

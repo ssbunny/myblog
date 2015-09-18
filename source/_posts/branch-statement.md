@@ -1,9 +1,11 @@
-title: 玩转分支语句
-date: 2015-09-13 19:56:51
+title: 写好程序分支控制
+date: 2015-09-13
+updated: 2015-09-18
 tags:
  - lang
  - pattern
 ---
+
 
 分支语句在编程语言中有着举足轻重的地位。有一定工作年限的程序员，通常遇到过这样一段代码，它有数百行，包含了十几甚至二十几个分支，嵌套多达五六层甚至十多层，各种 `if ... else ...` 语句交叉在一起。最可恨的是，每个分支上有着详尽的注释，你花了二十分钟，仔细阅读了每条注释，最后发现这些注释根本不能够告诉你它要做什么，你依然一头雾水。甚至有些注释还TM是错的，和代码逻辑根本不一致。
 
@@ -33,7 +35,7 @@ else {
 }
 ```
 
-如果你愿意做一个有节操的程序员，在上面的代码继续发臭腐烂、直至必须重写前，你应该对其重构。
+如果你愿意做一个有节操的程序员，在上面的代码继续发臭腐烂、直至必须重写前，你应该对其重构。我认为**重构应该优先保证那些公开的API方法流程清晰易读、抽象层次一致、职责单一，具体的实现细节交由私有方法处理。**
 
 ## 1.1. 改进复杂的表达式
 
@@ -117,7 +119,7 @@ if (gender == MALE) {
 }
 ```
 
-这种分解的副作用是会增加复杂度，要酌情适当使用。
+这种分解的副作用是有可能增加圈复杂度，要酌情适当使用。
 
 
 ### 1.1.4. 提取函数
@@ -185,7 +187,7 @@ if (A && B || C) {
 
 ### 1.2.2. 使用空对象模式
 
-有时你需要再三检查某对象是否为 `null` ：
+有时你需要再三检查某对象是否为 `null` ，并对空对象做出相同的响应：
 
 ``` java
 // Foo.java
@@ -216,7 +218,7 @@ public class User {
 // Factory.java
 public class Factory {
     public static User getUser(int id) {
-        if (id == 100) {
+        if (id == 0) {
             return null;
         }
         return new User();
@@ -264,7 +266,7 @@ public class NullUser implements User {
 
 public class Factory {
     public static User getUser(int id) {
-        if (id == 100) {
+        if (id == 0) {
             return new NullUser();
         }
         return new RealUser();
@@ -282,12 +284,28 @@ public class Foo {
 
 `C#` 、`Go` 、 `swift` 等从语言级别直接提供 NullObject 模式，你可以很方便的使用或改进它。
 
+另外，还可以在不修改 `User` 代码的前提下，引入**标识接口**来识别空对象。例如增加一个：
+
+``` java
+interface Null {}
+```
+
+它不定义任何函数。然后让空对象实现它：
+
+``` java
+class NullUser extends User implements Null {
+    // ...
+}
+```
+
+此时便可以通过 `instanceof` 操作符来检查对象是否为 null.
+
 
 ## 1.3. 改进条件调度
 
 ### 1.3.1. 使用 `卫语句` 避免不必要的嵌套
 
-> 条件表达式通常有2种表现形式。第一：所有分支都属于正常行为。第二：条件表达式提供的答案中只有一种是正常行为，其他都是不常见的情况。这2类条件表达式有不同的用途。如果2条分支都是正常行为，就应该使用形如 `if ... else ...`的条件表达式；如果某个条件极其罕见，就应该单独检查该条件，并在该条件为真时立刻从函数中返回。这样的单独检查常常被称为**卫语句(guard clause)**。
+> 条件表达式通常有2种表现形式。第一：所有分支都属于正常行为。第二：条件表达式提供的答案中只有一种是正常行为，其他都是不常见的情况。这2类条件表达式有不同的用途。如果2条分支都是正常行为，就应该使用形如 `if ... else ...` 的条件表达式；如果某个条件极其罕见，就应该单独检查该条件，并在该条件为真时立刻从函数中返回。这样的单独检查常常被称为**卫语句(guard clause)**。
 
 
 可以先将程序逻辑中不符合条件的情况优先过滤掉，以保证主体代码的清晰简单。例如将：
@@ -367,7 +385,7 @@ fi
 
 ``` bash
 days=(31 28 31 30 31 30 31 31 30 31 30 31)
-day=days[$month];
+day=days[$month]
 ```
 
 又如：
@@ -423,13 +441,116 @@ if m, ok := m["MALE"]; ok {
 }
 ```
 
-表驱动法的核心思路是将各判断条件放置到表结构中，从而减化客户端代码的判断逻辑，使代码条理更加清晰。
+表驱动法的核心思路是将各判断条件放置到表结构中，将判断逻辑转化为查找表的逻辑，从而减化客户端代码，使代码条理更加清晰。使用时应该重点关注表结构的设计。
 
 
 ### 1.3.4. 使用多态
 
+当条件分支逻辑是用来判定类型、代码执行逻辑的抽象层次一致且较为复杂时，可考虑使用多态。例如以下代码(注：示例代码结构其实很简单，通常不需要修改，希望你能够理解它背后所代表的复杂的结构)：
 
+``` java
+public int getLegNumbers(String name) {
+    switch(name) {
+    case "chicken":
+        return 2;
+    case "frog":
+        return 4;
+    case "crab":
+        return 8;
+    case "centipede":
+        return 70;
+    }
+}
+```
+
+可以重构为：
+
+``` java
+// 客户端代码：
+public int getLegNumbers(Animal animal) {
+    return animal.legs();
+}
+```
+
+``` java
+// 基于多态的重构
+public interface Animal {
+    legs();
+}
+public class Chicken implements Animal {
+    public int legs() {
+        return 2;
+    }
+}
+public class Frog implements Animal {
+    public int legs() {
+        return 4;
+    }
+}
+public class Crab implements Animal {
+    public int legs() {
+        return 8;
+    }
+}
+public class Centipede implements Animal {
+    public int legs() {
+        return 70;
+    }
+}
+```
+
+有时你还需要：
+1. 使用**策略模式**或**状态模式**取代类型代码；
+2. 使用**命令模式**替换条件调度逻辑。
+
+### 1.3.5. 使用鸭子类型
+
+除了使用多态做类型泛化，也可以使用鸭子类型约束行为方法。它可以忽略掉你必须对类型所做的判断，而只关心程序中的行为逻辑的抽象。例如：
+
+``` go
+type Chicken struct {
+    legs int
+}
+
+func NewChicken() *Chicken {
+    chicken := Chicken{
+        legs: 2,
+    }
+    return &chicken
+}
+
+func (c *Chicken) Legs() int {
+    return c.legs
+}
+
+...
+```
+
+客户端代码只需要约束鸭子类型，不需要关注实现细节，甚至不需要关注是不是 `Animal`，只要有 `Legs`，哪怕你是一张桌子：
+
+``` go
+type LegsNumber interface {
+    Legs() int
+}
+
+func LegNumbers(anything LegsNumber) {
+    return anything.Legs()
+}
+```
+
+
+重构过程你应该把握好“度”的问题，并不是当你遇到A情况时，将其重构为B情况即为最佳实践。通常脱离应用场景是无法谈最佳实践的。例如当你过分地依赖多态或其它设计模式时，很可能因为引入过多的类，将原本简单清晰的代码变得更晦涩。你应该努力做到让代码阅读者每次接收到的信息保持相同的抽象层次，比如一个业务流程控制方法中，应该只能看到流程的控制逻辑以及执行哪些流程，而不应该出现流程处理的细节。
 
 
 
 # 2.性能优化
+
+> 过早的优化是万恶之源。 -- Donald Knuth
+
+首先，千万不要为了你以为的那么一丁点性能提升，就以牺牲代码可读性为代价而做性能优化！其次，你要认清你所谓的性能提升10倍，是将 1 毫秒变成了 0.1 毫秒，还是将 10 秒变成了 1 秒。性能优化应该关注产生性能瓶颈的部分。
+
+通常优化工作应该在高层次上来做，很少会出现优化一个分支语句这种极端的场景。但为了文章的完整性，仍然总结了一些和分支相关的优化技巧。
+
+
+
+
