@@ -543,14 +543,168 @@ func LegNumbers(anything LegsNumber) {
 
 
 
-# 2.性能优化
+# 2. 性能优化
 
 > 过早的优化是万恶之源。 -- Donald Knuth
 
 首先，千万不要为了你以为的那么一丁点性能提升，就以牺牲代码可读性为代价而做性能优化！其次，你要认清你所谓的性能提升10倍，是将 1 毫秒变成了 0.1 毫秒，还是将 10 秒变成了 1 秒。性能优化应该关注产生性能瓶颈的部分。
 
-通常优化工作应该在高层次上来做，很少会出现优化一个分支语句这种极端的场景。但为了文章的完整性，仍然总结了一些和分支相关的优化技巧。
+通常优化工作应该在高层次上来做，很少会出现优化一个分支语句这种极端的场景。但为了文章的完整性，仍然总结了一些和分支相关的优化技巧。结构良好的代码通常和编程语言的关系不是那么紧密，但是性能优化往往会和编程语言紧密关联。优化工作应该总是**结合运行时的具体环境**来做，以下仅仅是一些思路总结。
 
 
+假设有这样一段代码：
+
+``` c
+if (value == 0) {
+    return result0;
+} else if (value == 1) {
+    return result1;
+} else if (value == 2) {
+    return result2;
+} else if (value == 3) {
+    return result3;
+} else if (value == 4) {
+    return result4;
+} else if (value == 5) {
+    return result5;
+} else if (value == 6) {
+    return result6;
+} else if (value == 7) {
+    return result7;
+} else if (value == 8) {
+    return result8;
+} else if (value == 9) {
+    return result9;
+} else {
+    return result10;
+}
+```
+
+## 2.1 将条件按频率倒排
+
+实际业务中，如果 `value` 为 `9` 的情况经常出现，则应该将该判断放在最前面。
+
+``` c
+if (value == 9) {
+    return result9;
+} else if (value == 0) {
+    return result0;
+} else if (value == 1) {
+    return result1;
+} else if (value == 2) {
+    return result2;
+} else if (value == 3) {
+    return result3;
+} else if (value == 4) {
+    return result4;
+} else if (value == 5) {
+    return result5;
+} else if (value == 6) {
+    return result6;
+} else if (value == 7) {
+    return result7;
+} else if (value == 8) {
+    return result8;
+} else {
+    return result10;
+}
+```
+
+## 2.2 拆分分支
+
+如果没有明显的频率，则可考虑拆分成多个分支。其实和上面一样，核心思路是**减少分支判断的次数**：
+
+``` c
+if (value < 6) {
+    if (value < 3) {
+        if (value == 0) {
+            return result0;
+        } else if (value == 1) {
+            return result1;
+        } else {
+            return result2;
+        }
+    } else {
+        if (value == 3) {
+            return result3;
+        } else if (value == 4) {
+            return result4;
+        } else {
+            return result5;
+        }
+    }
+} else {
+    if (value < 8) {
+        if (value == 6) {
+            return result6;
+        } else {
+            return result7;
+        }
+    } else {
+        if (value == 8) {
+            return result8;
+        } else if (value == 9) {
+            return result9;
+        } else {
+            return result10;
+        }
+    }
+}
+```
+
+## 2.3 使用 switch 语句
+
+多重条件判断时推荐 `switch` 语句，通常编译器更容易针对它做优化。而像 JavaScript 中，其性能随解释引擎不同表现参差不齐。
+
+上面的例子很容易改造成 `switch` 语句，不再给出示例代码。
+
+## 2.4 使用表查询
+
+参见“重构”中的“表驱动法”。当条件判断数量众多，且这些条件能用数字或字符串等离散值来表示时，通常可以进行类似的优化。使用表结构，不仅能提高代码可读性，也能提升效率。
+
+## 2.5 Duff 策略
+
+这条和分支没有直接关系，是快速循环的技巧。由于会用到 `switch` 语句，也放在此处备查。
+
+首先要了解这样一个事实：对于绝大多数语言，将循环展开后效率往往更高。例如：
+
+``` js
+var i = values.length;
+while (i--) {
+    process(values[i]);
+}
+```
+
+比如数组中有 5 项，展开后的执行速度更快：
+
+``` js
+process(values[0]);
+process(values[1]);
+process(values[2]);
+process(values[3]);
+process(values[4]);
+```
+
+Duff 策略由 Tom Duff 首先在 C 语言中提出。它是一种展开循环的构想，通过限制循环次数来减少循环开销。这里给出 JavaScript 实现的示例代码(因为这种技巧在 JavaScript 中更实用)：
+
+``` js
+var iterations = Math.ceil(values.length / 8);
+var startAt = values.length % 8;
+var i = 0;
+
+do {
+    switch(startAt) {
+        case 0: process(values[i++]);
+        case 7: process(values[i++]);
+        case 6: process(values[i++]);
+        case 5: process(values[i++]);
+        case 4: process(values[i++]);
+        case 3: process(values[i++]);
+        case 2: process(values[i++]);
+        case 1: process(values[i++]);
+    }
+    startAt = 0;
+} while (--iterations > 0);
+```
 
 
