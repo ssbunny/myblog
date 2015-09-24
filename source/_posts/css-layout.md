@@ -2,7 +2,7 @@
 layout: post
 title:  CSS 布局技巧
 date:   2015-09-05 15:56:30
-categories: 程序人生
+categories: Coding
 description: 总结归纳了常用的 css 布局技巧。
 tags:
  - web
@@ -508,8 +508,35 @@ tags:
 }
 </style>
 
-``` css.c23 {    height: 100%;    display: -webkit-flex;    display:         flex;    -webkit-align-items: center;            align-items: center;    -webkit-justify-content: center;            justify-content: center;}.c23 .content {    height: 100px;    width: 300px;    background-color: blue;}
-`````` html<div class="demo">    <div class="c23">        <div class="content"></div>    </div></div>```效果如下：<div class="demo"><div class="c23"><div class="content"></div></div></div>
+``` css
+.c23 {
+    height: 100%;
+    display: -webkit-flex;
+    display:         flex;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+}
+.c23 .content {
+    height: 100px;
+    width: 300px;
+    background-color: blue;
+}
+```
+
+``` html
+<div class="demo">
+    <div class="c23">
+        <div class="content"></div>
+    </div>
+</div>
+```
+
+效果如下：
+
+<div class="demo"><div class="c23"><div class="content"></div></div></div>
+
 或是：
 
 ``` css
