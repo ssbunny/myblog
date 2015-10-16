@@ -9,8 +9,6 @@
   {% if is_home() %} page-home {% endif %}
 {% endblock %}
 
-dddd
-
 {% block content %}
   <section id="posts" class="posts-expand">
     {% for post in page.posts %}

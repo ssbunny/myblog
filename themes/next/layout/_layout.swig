@@ -28,7 +28,9 @@
         {% endif %}
 
         {% if page.comments %}
+
           <div class="comments" id="comments">
+            <div id="q_share">  {% include '_scripts/baidushare.swig' %} </div>
             {% if (theme.duoshuo and theme.duoshuo.shortname) or theme.duoshuo_shortname %}
               <div class="ds-thread" data-thread-key="{{ page.path }}"
                    data-title="{{ page.title }}" data-url="{{ page.permalink }}">
@@ -82,7 +84,7 @@
 
   {% include '_scripts/mathjax.swig' %}
   {% block comment_system %}{% endblock %}
-  {% include '_scripts/baidushare.swig' %}
+
 
   {# LazyLoad #}
   <script type="text/javascript" src="{{ url_for(theme.js) }}/lazyload.js"></script>

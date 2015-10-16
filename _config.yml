@@ -75,7 +75,9 @@ deploy:
 
 # others
 since: 2015
-duoshuo_shortname: ssbunny
 social:
   github: https://github.com/ssbunny
   coding.net: https://coding.net/u/zhangqiang
+duoshuo_shortname: ssbunny
+baidu_analytics: 219062a13ded246daaa92ec44ebc0fa8
+baidushare: true
