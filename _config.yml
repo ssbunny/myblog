@@ -72,6 +72,10 @@ deploy:
   type: git
   repo: https://github.com/ssbunny/ssbunny.github.io.git
 
+links_title: Links
+# links
+links:
+  唐老师的博客: http://www.kyletang.work
 
 # others
 since: 2015
