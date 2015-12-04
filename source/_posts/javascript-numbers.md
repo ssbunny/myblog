@@ -233,5 +233,43 @@ console.log(myToFixed(2.135, 2));
 
 最后，我就不告诉你IE7的结果不尽相同了。而其它浏览器的计算结果是否和我的环境相同，我也不敢告诉你答案，因为我不确定。至于如何完全正确地四舍五入，我并没有答案，也有人采用转成字符串进而进行正则匹配的方法，这在特定的场合下也许可行，但很难写出通用的方法。
 
+## 6. 取随机整数
+
+JavaScript 中缺少产生随机整数的方法，但是可以用 `Math.random()` 自行实现。参考代码如下：
+
+```js
+function nextInt(n) {
+    var ret = parseInt(Math.random() * n);
+    if (ret > n || ret < 0 ) {
+        ret = n;
+    }
+    return ret;
+}
+```
+
+产生的随机数分布的还算均匀。使用如下代码测试：
+
+```js
+function test(x) {
+    var foo = {};
+    for (var i = 10000 - 1; i >= 0; i--) {
+        var s = nextInt(x);
+        if (foo[s]) {
+            foo[s] = foo[s] + 1;
+        } else {
+            foo[s] = 1;
+        }
+    }
+    console.log(foo);
+}
+test(2);
+test(10);
+```
+
+输出：
+
+![nextint](nextint.png)
+
+
 **参考资料：**
 * [How numbers are encoded in JavaScript](http://www.2ality.com/2012/04/number-encoding.html)
