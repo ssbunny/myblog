@@ -5,7 +5,7 @@ tags:
  - redis
 ---
 
-Redis 底层使用 **SDS** (Simple Dynamic Strings) 实现字符串存储，其结构非常简单，直接看源码即可了解个大概：
+Redis 底层使用 **SDS** (Simple Dynamic Strings) 作为字符串类型的存储方式之一，其结构非常简单，直接看源码即可了解个大概：
 
 ```c
 typedef char *sds;
@@ -66,11 +66,11 @@ static inline size_t sdslen(const sds s) {
 }
 ```
 
-唐老师画了一张图，可以帮助理解：
+唐老师给我画了一张图，可以帮助理解：
 
 ![sds](sds.png)
 
-最后一个我比较关注的问题是，sds 是如何扩容的？这一过程在 sdsMakeRoomFor 函数中实现：
+最后一个值得关注的问题是，sds 是如何扩容的？这一过程在 sdsMakeRoomFor 函数中实现：
 
 ```c
 sds sdsMakeRoomFor(sds s, size_t addlen) {
@@ -106,5 +106,7 @@ sds sdsMakeRoomFor(sds s, size_t addlen) {
 $ SET foo bar
 $ APPEND foo blahblah
 ```
+
+当然，这种预先分配容量的方式，虽然能减少内存分配的次数，提高 `APPEND` 操作的性能，但会造成一定的内存占用，而且此部分内存不会主动释放。 
 
 
