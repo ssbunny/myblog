@@ -38,6 +38,8 @@ typedef struct list {
 
 `list` 中保存了指向表头和表尾的指针，因此在执行 `LPUSH`、`RPUSH`、`RPOP` 等命令时是非常快的(θ(1))；其中还保存了 len 值，因此 `LLEN` 命令的执行也是非常快的。
 
+![double_link_list.svg](double_link_list.svg)
+
 另外，它还保存了三个函数指针 dup、free 和 match 用来复制、释放和对比链表，这样做是因为节点值的类型是不确定的，具体的实现方法交由用户代码灵活扩展处理。比如如果用户定义了 match 函数的实现，则采用它来替换默认使用 `==` 的比较策略：
 
 ```c
