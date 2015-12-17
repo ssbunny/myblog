@@ -111,4 +111,4 @@ void listRewind(list *list, listIter *li);
 void listRewindTail(list *list, listIter *li);
 ```
 
-
+_(使用的源码基于 redis 3.0.5)_
