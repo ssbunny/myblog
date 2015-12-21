@@ -5,7 +5,13 @@
 	border-bottom: none;
 }
 </style>
-<div style="color:#999;">写的太好了，忍不住要分享：</div>
+<div style="color:#999;">
+    <span id="busuanzi_container_page_pv">
+    	本文已被阅读
+    	<span id="busuanzi_value_page_pv"></span>
+    	次，若是感觉写得还不错就分享一下 :)
+    </span>
+</div>
 <div class="bdsharebuttonbox">
 	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
 	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>

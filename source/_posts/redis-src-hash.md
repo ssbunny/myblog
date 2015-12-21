@@ -58,7 +58,21 @@ typedef struct dictEntry {
 } dictEntry;
 ```
 
+当发生冲突时，dict 首先会使用**分离链接法**将散列到同一个值的所有元素保留到一个表中。当到了一定时机，它会通过**再散列**进行扩展。
+
 ![redis-dict.svg](redis-dict.svg)
+
+Redis 还提供了遍历散列表用的迭代器，它支持安全(遍历期间可以增加元素等操作)、不安全两种方式遍历散列表：
+
+```c
+typedef struct dictIterator {
+    dict *d;
+    long index;
+    int table, safe;
+    dictEntry *entry, *nextEntry;
+    long long fingerprint;
+} dictIterator;
+```
 
 todo 渐进式再散列
 
