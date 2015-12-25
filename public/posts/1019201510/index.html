@@ -1,0 +1,798 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。" />
+
+
+
+  <meta name="keywords" content="pattern," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="整理一些公认的编程基本原则。
+KISS
+Keep It Simple Stupid
+
+要注重简约。
+YAGNI
+you aren’t gonna need it
+
+在确实需要某功能之前，不要依靠预测去实现它。
+DRY
+Don’t Repeat Yourself
+
+不要编写重复代码，将业务规则、公式、元数据等放在一处。
+LSP
+Liskov Substitution Principle
+
+里氏替换原">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编程基本原则汇总">
+<meta property="og:url" content="http://zhangqiang.work/posts/1019201510/index.html">
+<meta property="og:site_name" content="ssbunny' blog">
+<meta property="og:description" content="整理一些公认的编程基本原则。
+KISS
+Keep It Simple Stupid
+
+要注重简约。
+YAGNI
+you aren’t gonna need it
+
+在确实需要某功能之前，不要依靠预测去实现它。
+DRY
+Don’t Repeat Yourself
+
+不要编写重复代码，将业务规则、公式、元数据等放在一处。
+LSP
+Liskov Substitution Principle
+
+里氏替换原">
+<meta property="og:updated_time" content="2015-10-23T08:36:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编程基本原则汇总">
+<meta name="twitter:description" content="整理一些公认的编程基本原则。
+KISS
+Keep It Simple Stupid
+
+要注重简约。
+YAGNI
+you aren’t gonna need it
+
+在确实需要某功能之前，不要依靠预测去实现它。
+DRY
+Don’t Repeat Yourself
+
+不要编写重复代码，将业务规则、公式、元数据等放在一处。
+LSP
+Liskov Substitution Principle
+
+里氏替换原">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'hide'
+  };
+</script>
+
+  <title> 编程基本原则汇总 | ssbunny' blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?219062a13ded246daaa92ec44ebc0fa8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">ssbunny' blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              编程基本原则汇总
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-10-19T15:48:35+08:00" content="2015-10-19">
+            2015-10-19
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Coding/" itemprop="url" rel="index">
+                  <span itemprop="name">Coding</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/posts/1019201510/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="posts/1019201510/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>整理一些公认的编程基本原则。</p>
+<h2 id="KISS">KISS</h2><blockquote>
+<p>Keep It Simple Stupid</p>
+</blockquote>
+<p>要注重简约。</p>
+<h2 id="YAGNI">YAGNI</h2><blockquote>
+<p>you aren’t gonna need it</p>
+</blockquote>
+<p>在确实需要某功能之前，不要依靠预测去实现它。</p>
+<h2 id="DRY">DRY</h2><blockquote>
+<p>Don’t Repeat Yourself</p>
+</blockquote>
+<p>不要编写重复代码，将业务规则、公式、元数据等放在一处。</p>
+<h2 id="LSP">LSP</h2><blockquote>
+<p>Liskov Substitution Principle</p>
+</blockquote>
+<p>里氏替换原则：程序中的对象可以被它的子类型替换，而同时不改变程序的正确性。</p>
+<h2 id="LoD">LoD</h2><blockquote>
+<p>Law of Demeter : Don’t talk to strangers</p>
+</blockquote>
+<p>迪米特法则：又叫最少知识原则，一个对象应当对其他对象有尽可能少的了解，不和陌生人说话。</p>
+<p>对象的方法应该只调用以下方法：</p>
+<ol>
+<li>对象自己的；</li>
+<li>方法参数中的；</li>
+<li>方法内部创建的任何对象中的方法；</li>
+<li>对象直接属性或域中的方法(聚合关系)。</li>
+</ol>
+<h2 id="OCP">OCP</h2><blockquote>
+<p><strong>Open/Closed Principle:</strong> Software entities (e.g. classes) should be open for extension, but closed for modification.</p>
+</blockquote>
+<p>开闭原则：软件实体应当对扩展开放，对修改关闭。</p>
+<h2 id="SRP">SRP</h2><blockquote>
+<p><strong>Single Responsibility Principle: </strong>A class should never have more than one reason to change.</p>
+</blockquote>
+<p>单一职责原则：就一个类而言，应该仅有一个引起它变化的原因。</p>
+<p><strong>Resources</strong></p>
+<ol>
+<li><a href="http://en.wikipedia.org/wiki/KISS_principle" target="_blank" rel="external">KISS principle</a></li>
+<li><a href="http://principles-wiki.net/principles:keep_it_simple_stupid" target="_blank" rel="external">Keep It Simple Stupid (KISS)</a></li>
+<li><a href="http://c2.com/xp/YouArentGonnaNeedIt.html" target="_blank" rel="external">You Arent Gonna Need It</a></li>
+<li><a href="http://www.xprogramming.com/Practices/PracNotNeed.html" target="_blank" rel="external">You’re NOT gonna need it!</a></li>
+<li><a href="http://en.wikipedia.org/wiki/You_ain&#39;t_gonna_need_it" target="_blank" rel="external">You aren’t gonna need it</a></li>
+<li><a href="http://c2.com/cgi/wiki?DontRepeatYourself" target="_blank" rel="external">Dont Repeat Yourself</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Don&#39;t_repeat_yourself" target="_blank" rel="external">Don’t repeat yourself</a></li>
+<li><a href="http://programmer.97things.oreilly.com/wiki/index.php/Don&#39;t_Repeat_Yourself" target="_blank" rel="external">Don’t Repeat Yourself</a></li>
+<li><a href="http://c2.com/cgi/wiki?CodeForTheMaintainer" target="_blank" rel="external">Code For The Maintainer</a></li>
+<li><a href="http://blog.codinghorror.com/the-noble-art-of-maintenance-programming/" target="_blank" rel="external">The Noble Art of Maintenance Programming</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Program_optimization" target="_blank" rel="external">Program optimization</a></li>
+<li><a href="http://c2.com/cgi/wiki?PrematureOptimization" target="_blank" rel="external">Premature Optimization</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Law_of_Demeter" target="_blank" rel="external">Law of Demeter</a></li>
+<li><a href="http://haacked.com/archive/2009/07/14/law-of-demeter-dot-counting.aspx/" target="_blank" rel="external">The Law of Demeter Is Not A Dot Counting Exercise</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle" target="_blank" rel="external">Liskov substitution principle</a></li>
+<li><a href="http://freshbrewedcode.com/derekgreer/2011/12/31/solid-javascript-the-liskov-substitution-principle/" target="_blank" rel="external">The Liskov Substitution Principle</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Single_responsibility_principle" target="_blank" rel="external">Single responsibility principle</a></li>
+</ol>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pattern/" rel="tag">#pattern</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/1030201510/" rel="prev">Java8特性 - Lambda表达式</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/1015201510/" rel="next">Docker 架构</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+
+          <div class="comments" id="comments">
+            <div id="q_share">  
+
+<style type="text/css">
+.bdsharebuttonbox a {
+	border-bottom: none;
+}
+</style>
+<div style="color:#999;">
+    <span id="busuanzi_container_page_pv">
+    	本文已被阅读
+    	<span id="busuanzi_value_page_pv"></span>
+    	次，若是感觉写得还不错就分享一下 :)
+    </span>
+</div>
+<div class="bdsharebuttonbox">
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="bds_more" data-cmd="more"></a>
+</div>
+<script>
+window._bd_share_config = {
+	"common": { 
+		"bdSnsKey": {},
+		"bdText": "",
+		"bdMini": "2",
+		"bdMiniList": [
+			"mshare", "weixin","renren",
+			"tqf","tieba","douban","sqq","youdao",
+		],
+		"bdPic":"",
+		"bdStyle":"1",
+		"bdSize":"24"
+	},
+	"share":{}
+};
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+ </div>
+            
+              <div class="ds-thread" data-thread-key="posts/1019201510/"
+                   data-title="编程基本原则汇总" data-url="http://zhangqiang.work/posts/1019201510/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpeg" alt="绿豆爸爸" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">绿豆爸爸</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ssbunny" target="_blank">github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://coding.net/u/zhangqiang" target="_blank">coding.net</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.kyletang.work" target="_blank">唐老师的博客</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#KISS"><span class="nav-text">KISS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#YAGNI"><span class="nav-text">YAGNI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DRY"><span class="nav-text">DRY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSP"><span class="nav-text">LSP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LoD"><span class="nav-text">LoD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OCP"><span class="nav-text">OCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SRP"><span class="nav-text">SRP</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">绿豆爸爸</span>
+  <span>&nbsp;&nbsp;&nbsp;(感谢 Github 、 Hexo 、 NexT 的支持。）</span>
+</div>
+
+<div>
+  <span id="busuanzi_container_site_pv">
+    您是本站的第 <span style="color:green" id="busuanzi_value_site_uv"></span> 位访客，
+    我可怜的博客已被猛戳了 <span style="color:green" id="busuanzi_value_site_pv"></span> 下。
+  </span>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ssbunny"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

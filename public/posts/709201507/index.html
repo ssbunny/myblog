@@ -1,0 +1,805 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。" />
+
+
+
+  <meta name="keywords" content="ExtJS核心概念系列文章,extjs,javascript,web," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="ExtJS 的组件生命周期分为三个阶段：
+
+初始化
+渲染
+销毁
+
+准确理解组件的生命周期过程，是正确使用 ExtJS 框架的基础。尤其当你需要编写 ExtJS 的插件或对其做其它扩展时，更应该知道组件详细的生命周期过程。
+
+从图中可以看出，ExtJS 的组件始于初始化终于销毁，而且组件未必需要经过渲染即可进入销毁阶段。不同版本的 ExtJS 处理的细节必然不尽相同，我很难告诉你一个永远正确的、详实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ExtJS 核心概念 - 组件的生命周期">
+<meta property="og:url" content="http://zhangqiang.work/posts/709201507/index.html">
+<meta property="og:site_name" content="ssbunny' blog">
+<meta property="og:description" content="ExtJS 的组件生命周期分为三个阶段：
+
+初始化
+渲染
+销毁
+
+准确理解组件的生命周期过程，是正确使用 ExtJS 框架的基础。尤其当你需要编写 ExtJS 的插件或对其做其它扩展时，更应该知道组件详细的生命周期过程。
+
+从图中可以看出，ExtJS 的组件始于初始化终于销毁，而且组件未必需要经过渲染即可进入销毁阶段。不同版本的 ExtJS 处理的细节必然不尽相同，我很难告诉你一个永远正确的、详实">
+<meta property="og:image" content="http://zhangqiang.work/lifecycle_01.png">
+<meta property="og:updated_time" content="2015-10-16T06:59:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ExtJS 核心概念 - 组件的生命周期">
+<meta name="twitter:description" content="ExtJS 的组件生命周期分为三个阶段：
+
+初始化
+渲染
+销毁
+
+准确理解组件的生命周期过程，是正确使用 ExtJS 框架的基础。尤其当你需要编写 ExtJS 的插件或对其做其它扩展时，更应该知道组件详细的生命周期过程。
+
+从图中可以看出，ExtJS 的组件始于初始化终于销毁，而且组件未必需要经过渲染即可进入销毁阶段。不同版本的 ExtJS 处理的细节必然不尽相同，我很难告诉你一个永远正确的、详实">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'hide'
+  };
+</script>
+
+  <title> ExtJS 核心概念 - 组件的生命周期 | ssbunny' blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?219062a13ded246daaa92ec44ebc0fa8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">ssbunny' blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              ExtJS 核心概念 - 组件的生命周期
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-07-09T14:00:32+08:00" content="2015-07-09">
+            2015-07-09
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Coding/" itemprop="url" rel="index">
+                  <span itemprop="name">Coding</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/posts/709201507/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="posts/709201507/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>ExtJS 的组件生命周期分为三个阶段：</p>
+<ul>
+<li>初始化</li>
+<li>渲染</li>
+<li>销毁</li>
+</ul>
+<p>准确理解组件的生命周期过程，是正确使用 ExtJS 框架的基础。尤其当你需要编写 ExtJS 的插件或对其做其它扩展时，更应该知道组件详细的生命周期过程。</p>
+<p><img src="lifecycle_01.png" alt="ExtJS的组件生命周期"></p>
+<p>从图中可以看出，ExtJS 的组件始于<strong>初始化</strong>终于<strong>销毁</strong>，而且组件未必需要经过<strong>渲染</strong>即可进入销毁阶段。不同版本的 ExtJS 处理的细节必然不尽相同，我很难告诉你一个永远正确的、详实的生命周期过程，因此我以 4.2 版本为蓝本讨论其生命周期中具体的处理过程，希望给你一个方向性的指引，而你应该根据手中具体的版本结合API文档，甚至是源代码来确定生命周期过程中的每一个细节。值得庆幸的是，我在 ExtJS 3.4/4.2/5.1 三个版本中，都没有发现其生命周期有很大的变动。</p>
+<p>另一件值得补充的事是，我在实践中发现有不少人知道 “ExtJS 存在生命周期” 这么一回儿事，然而并不清楚这和自己的代码有什么关系。我想在正式讲解前告诉你，当你 <code>Ext.create</code> (或 <code>new</code>) 一个组件时，它的生命周期过程就会开始，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Ext.create(<span class="string">'Ext.grid.Panel'</span>, &#123;</span><br><span class="line">    title: <span class="string">'MyPanel'</span>,</span><br><span class="line">    height: <span class="number">200</span>,</span><br><span class="line">    width: <span class="number">400</span>,</span><br><span class="line">    store: ...,</span><br><span class="line">    columns: ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>我们创建了一个 ExtJS 的列表组件，此时它会完成生命周期中的 “初始化” 阶段，当我们在浏览器中执行以上代码时并没有看到列表页面，因为组件还没有渲染。如果我们配置了 <code>renderTo</code> 属性，则它会在初始化后直接进入渲染阶段。</p>
+<p>你在无意中操作生命周期的情况也有很多，又如，通过调用 <code>add</code> 方法给 toolbar 组件增加新的按钮：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">toolbar.add([</span><br><span class="line">    &#123;text: <span class="string">'Button 1'</span>&#125;,</span><br><span class="line">    &#123;text: <span class="string">'Button 2'</span>&#125;</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+<p>这一过程通常也会经过“初始化”和“渲染”阶段。我们只是传入了一个极其普通的 JavaScript 对象，ExtJS 框架内部会帮我们创建、初始化 <code>Button</code> 对象并将其渲染到相应容器(此例为 <code>toolbar</code>)中。如果你想自己完成初始化操作，可以这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> anothorBtn = Ext.create(<span class="string">'Ext.button.Button'</span>, &#123;</span><br><span class="line">    text: <span class="string">'MyButton'</span></span><br><span class="line">&#125;);</span><br><span class="line">toobar.add(anothorBtn);</span><br></pre></td></tr></table></figure>
+<p>两种方式稍有区别，后者可能会过早地创建一个也许永远用不着的组件。现在来看看具体的生命周期过程:</p>
+<h2 id="初始化">初始化</h2><p>初始化是组件开始构建的起点，你可以粗略地认为，本阶段仅是创建 JavaScript 对象的过程，也正因此初始化可能是执行速度最快的。这一阶段会进行必要的配置信息处理、注册一些基础事件，甚至会做预渲染工作。</p>
+<h3 id="1-_配置应用">1. 配置应用</h3><p>优先处理参数中传入的配置信息。通常这一过程只是把配置对象复制到想要创建的 ExtJS 组件中以备后续使用。<code>initialConfig</code> 中保存着你传入的原始参数。代码实现看起来是这样的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (config) &#123;</span><br><span class="line">    Ext.apply(<span class="keyword">this</span>, config);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    config = &#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">this</span>.initialConfig = config;</span><br></pre></td></tr></table></figure>
+<h3 id="2-_注册事件">2. 注册事件</h3><p>之后会注册监听事件，注意是 <strong>注册</strong> 而非触发或绑定事件。事件注册过程就像变量声明，只是声称当前组件有哪些事件，此时应该在文档中描述清楚这些事件何时会触发。ExtJS 提供了注册事件的方法，非常方便：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.addEvents(<span class="string">'activate'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="3-_生成ID">3. 生成ID</h3><p>如果你通过参数传入了 id 则使用传入的，否则将会生成新的。ExtJS 的代码实现非常有趣，我在 ExtJS 2.2 版本中初次见到这个方法时，就觉得它是个不错的 JS 技巧，直到现在ExtJS 还在使用它，来欣赏一下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getId: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.id || (<span class="keyword">this</span>.id = <span class="string">'ext-comp-'</span> + (<span class="keyword">this</span>.getAutoId()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>插句题外话。我建议应用中除了公共的、使用频率极高的组件，尽量不要明确指定 id ，毕竟 id 最终会被用来生成 html 标签的 id 属性。此时重复的 id 将导致不可预知的后果。如果你希望在某组件中快速地找到子组件，使用 <code>itemId</code> ！</p>
+<h3 id="4-_实例化插件">4. 实例化插件</h3><p>插件的实例化过程是早于 <code>initComponet</code> 的，以便于像 gridpanel 的 <code>editing</code> 这类插件提前处理 editor 等。</p>
+<h3 id="5-_initComponent">5. initComponent</h3><p>使用过 ExtJS 的人都知道这个方法。<code>initComponent</code> 方法的设计动机是给子类一个切入点，使其可以友好地参与父类的初始化过程。在方法中你可以：注册子类特有的事件，创建对 store 的引用，创建并实例化子组件等。通常你只需要覆盖并实现此方法来扩展某组件的初始化过程即可。</p>
+<h3 id="6-_组件注册到_ComponentManager_中">6. 组件注册到 ComponentManager 中</h3><p>此步会将组件注册到 ComponentManager 中，它是 ExtJS 的组件管理器，当你调用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ext.getCmp(<span class="string">'foo'</span>);</span><br></pre></td></tr></table></figure>
+<p>时，实际上正是从组件管理器中找到对应组件。关于 ComponentManager 详细的介绍可以阅读API文档，唯一需要提醒你注意的是，不要使用重复 id ! 后注册的相同 id 的组件会覆盖之前的。</p>
+<h3 id="7-_增加_observable_和_state">7. 增加 observable 和 state</h3><p><code>observable</code> 为组件提供事件注册、触发及监听绑定的能力；<code>state</code> 为组件提供状态信息，如用户拖动的表格列宽、当前打开的标签页等。ExtJS 在生命周期过程中通过 mixin 的方式掺和了这两个能力，换言之，如果我们扩展的组件继承自 ExtJS 的任意一个组件，我们不需要显式地重复调用此二者，因为 ExtJS 已经为我们调用了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.mixins.observable.constructor.call(<span class="keyword">this</span>);</span><br><span class="line"><span class="keyword">this</span>.mixins.state.constructor.call(<span class="keyword">this</span>, config);</span><br></pre></td></tr></table></figure>
+<h3 id="8-_注册状态事件_resize">8. 注册状态事件 resize</h3><p>在上一步骤中注入了 state 能力，然后为组件绑定 resize 事件，以便组件随容器自动改变大小。这一步骤是 ExtJS 所有组件能够完成屏幕自适应的基础。</p>
+<h3 id="9-_初始化插件">9. 初始化插件</h3><p>也就是调用插件的 <code>init</code> 方法。在之前的步骤中已经实例化了所需插件，此步骤调用并执行插件。</p>
+<h3 id="10-_处理_ComponentLoader">10. 处理 ComponentLoader</h3><p><code>ComponentLoader</code> 提供了一种可能：通过Ajax传回的内容构造组件。详细使用参考API文档。</p>
+<h3 id="11-_进入渲染阶段">11. 进入渲染阶段</h3><p>如果指定了 <code>renderTo</code> 属性，则继续渲染组件，否则等待用户调用渲染方法，或通过父容器调用渲染方法。<br>如果是 “非容器内” 组件且配置了 <code>autoshow</code> 属性，则 <code>show</code> 组件。</p>
+<h2 id="渲染">渲染</h2><p>组件成功初始化后就具备了渲染条件，渲染是组件实际绘制到浏览器上并展示给用户的过程。此阶段通常最慢，如果组件极复杂，渲染过程会消耗大量的CPU。我们前面提到过，如果你在创建组件时就指定了 <code>renderTo</code> 属性，组件会在初始化后直接开始渲染，当然你也可以通过调用 <code>render</code> 方法手动开启渲染过程：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myCmp.render(<span class="string">'myDivId'</span>);</span><br></pre></td></tr></table></figure>
+<p><code>render</code> 方法会将你的组件渲染到指定的 DOM 元素上。也许你会有疑问：“我的整个 ExtJS 项目中，根本没有出现过 renderTo 或 render 字样，可是页面不依然正常渲染了吗？”。很好，这至少说明你正在使用并认真观察过 ExtJS 的样子。你需要知道的更多：首先，ExtJS 的某些特定组件并不需要指定 <code>renderTo</code> 也很清楚自己往哪里渲染。例如 <code>viewport</code> 组件，它总是会渲染到 document body 上；另外，如果你把某组件放到另一个父容器组件中，父容器组件内部会根据当前布局情况自动调用<br><code>render</code> 方法。</p>
+<p>知道了这些，让我们来看看渲染阶段的具体步骤：</p>
+<h3 id="1-_触发_beforerender">1. 触发 beforerender</h3><p>首先触发 <code>beforerender</code> 事件。如果任一绑定到组件的 <code>beforerender</code> 事件函数中返回了 <code>false</code>，都将会阻止渲染过程的继续进行。如果你想在组件 <strong>初始化</strong> 之后 <strong>渲染</strong>之前做一些特定处理，绑定 <code>beforerender</code> 是个不错的选择。</p>
+<p>必须在组件渲染之前就绑定 <code>beforerender</code> 事件，渲染之后绑定的该事件无效(除非重新渲染或重复渲染)。这个道理很容易懂，不需要我多解释。然而很奇怪的是，我在实际项目中屡屡发现有些朋友犯这类错误。我想主要原因可能是当组件众多且关系稍有复杂时，他们便搞不清各组件正处于生命周期中的哪个阶段了。此类问题我无法给你一个万能的解决方案，但有一点可以确信：搞清楚 ExtJS 的组件生命周期，不断地独立调试，此类问题会越来越少。</p>
+<h3 id="2-_缓存">2. 缓存</h3><p>之后会用 <code>Ext.Element</code> 包裹 DOM 元素，并做一些缓存工作。缓存过程中也会进行预渲染，如果你有兴趣可以去研究 <code>ProtoElement</code> 对象(注意它在 ExtJS 4.2 中是私有的)，否则你只需要知道：ExtJS 为 DOM 元素做了缓存。</p>
+<h3 id="3-_处理浮动">3. 处理浮动</h3><p>设置了 <code>floating</code> 的组件会被 <code>WindowManager</code> 管理，它需要处理 <code>z-index</code> 及焦点问题。当使用 <code>Window</code> 和 <code>Menu</code> 时，建议多关注一下此步骤。</p>
+<h3 id="4-_设置容器">4. 设置容器</h3><p>容器有两种：一种是普通的 div，例如你通过 <code>renderTo</code> 指定了 DOM 元素，ExtJS 会在其下创建一个 div 并用 <code>Ext.dom.Element</code> 包裹，再将它作为当前组件的容器；另一种是已有的组件，此时该组件会成为当前组件的父组件。</p>
+<p>容器为 ExtJS 的组件提供了依存环境，通俗地讲，设置容器的过程解决了这样一个问题：构成当前组件低层的这么一大堆 HTML ，最终要被插入到页面上的哪个 HTML 下呢？</p>
+<h3 id="5-_onRender">5. onRender</h3><p>执行 <code>onRender</code> 方法。该方法之于渲染的重要性，如 initComponent 之于初始化。它是子类扩展渲染过程的切入点，通常子类中应该先调用父类的 onRender 方法，以便保证所有的核心 DOM 结构已经处理完毕。</p>
+<h3 id="6-_设置_hideMode_和_overCls">6. 设置 hideMode 和 overCls</h3><p>要了解 <code>hideMode</code> 你需要阅读API文档并学习相关 CSS 知识；<code>overCls</code> 用来为鼠标划过时增加额外的样式。</p>
+<h3 id="7-_触发_render">7. 触发 render</h3><p>触发 render 事件。此时所有的组件使用的 HTML 元素已被注入到 DOM 中，所有的样式也正确应用并处理。在 render 事件中操作组件自身的 DOM 是安全的，不过你需要清楚地知道，此时并非组件在页面中展示的最终形态，接下来要讲的后续操作有可能改变组件的结构、样式等。</p>
+<h3 id="8-_afterRender">8. afterRender</h3><p><code>afterRender</code> 是又一个实用的模板方法。渲染过程中调用此方法的主要目的是，完成一些渲染的收尾工作。这一阶段可以处理组件的大小(width/height)、组件对齐或增加 HTML style 等。如果需要，还会处理 resize , 处理滚动问题，以及拖拽等。子类中同样不要忘记调用父类的 afterRender 方法。</p>
+<h3 id="9-_触发_afterrender">9. 触发 afterrender</h3><p><code>afterrender</code> 事件被触发时，你可以放心地操作 DOM 了。此时组件已经接近最终形态，除了是否显示。</p>
+<h3 id="10-_设置_hidden">10. 设置 hidden</h3><p>如果组件被设定为 <code>hidden</code> ，将其对应的 HTML 元素隐藏起来。</p>
+<h2 id="销毁">销毁</h2><p>死亡对于我们来说是人生中的一件大事，对于组件亦然，销毁过程自然是指为组件处理后事。这些后事包括：从 DOM 树中将其移除；从 <code>ComponentManager</code> 中将其注销；销毁所有绑定到组件的事件等。</p>
+<p>通过调用 <code>destroy</code> 方法即可销毁组件。当然多数时候你并不需要手动写代码调用它，组件的父容器在销毁时会递归调用子组件的 destroy 方法。另外，像 window 等组件的 <code>close</code> 方法中，也会视配置情况自动调用 destroy 方法。</p>
+<p>当你开发自己的组件时，合理地销毁组件是很重要的。例如，如果我们在组件渲染时绑定了自定义的事件，而此事件没有被及时销毁，当再次渲染组件时，事件会被重复绑定至底层的 DOM。有时，这类程序缺陷并非那么容易被发现，因为相同的代码反复执行多次并不一定会产生副作用，它只是在渐渐地拖慢你的应用而已。而当用户刷新浏览器时，世界又再次变得美好。</p>
+<p>但如果不是简单的绑定事件呢？如果你那存在缺陷的代码会去反复创建另一个复杂的组件呢？如果你多次执行的是非幂等操作呢？所以请我们尊重每一个组件，让它们能够善始善终。</p>
+<p>来了解一下销毁过程：</p>
+<h3 id="1-_触发_beforedestroy">1. 触发 beforedestroy</h3><p>和许多事件一样，如果任一绑定到组件的 <code>beforedestroy</code> 事件函数中返回了 <code>false</code>，都将会阻止销毁过程的继续进行。</p>
+<h3 id="2-_beforeDestroy">2. beforeDestroy</h3><p>调用 <code>beforeDestroy</code> 模板方法。它和前面介绍的模板方法类似，在销毁前调用。</p>
+<h3 id="3-_注销浮动">3. 注销浮动</h3><p>如果组件设置了 <code>floating</code> ，这一步骤会从 <code>ZIndexManager</code> 中将浮动组件注销。</p>
+<h3 id="4-_从父容器中删除">4. 从父容器中删除</h3><p>接下来调用父容器的 <code>remove</code> 方法，从父容器中删除组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.ownerCt.remove(<span class="keyword">this</span>, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="5-_onDestroy">5. onDestroy</h3><p><code>onDestroy</code> 是实际销毁组件的方法，它也是一个模板方法。在 ExtJS 的组件中，此步骤会解除 <code>resize</code> 事件的绑定、销毁与当前组件关联的浮动组件(如 <code>loadMask</code>)，它还会删除绑定到组件上的延迟任务等。如果你自定义并扩展了 ExtJS 的组件，不要忘记在此步骤中回收一切应该回收的资源，让它们连同你的组件一起被销毁。</p>
+<h3 id="6-_销毁插件">6. 销毁插件</h3><p>销毁插件的过程即是依次调用各插件的 <code>destroy</code> 方法的过程。所以，当你编写插件时，不要忘记为其编写 <code>destroy</code> 方法。</p>
+<h3 id="7-_解除_HTML_事件绑定并销毁元素">7. 解除 HTML 事件绑定并销毁元素</h3><p>如果组件已经被渲染，则将其对应的 HTML 元素中绑定的事件解除，并销毁元素。如果组件初始化后没有渲染(如 <code>store</code>，通常不需要渲染)，则什么也不做。</p>
+<p>需要指出的是，此步骤解除的是绑定到底层 HTML 元素上的事件，而非绑定到 ExtJS 组件上的事件。一般情况下，绑定到组件的事件会被框架内部继续绑定至 HTML 元素，你不需要手动为 HTML 绑定事件。此类事件(如 <code>click</code>)需要用户通过浏览器实际发生交互才会触发。还有一种事件是 ExtJS 组件特有的，例如 <code>render</code> 事件，它只在 ExtJS 组件生命周期过程中触发，不会被绑定到 HTML 元素上。经过 ExtJS 的精心封装，这两类事件在代码层面来看并没有什么区别，但我希望你还是能正确区分它们。</p>
+<h3 id="8-_触发_destroy">8. 触发 destroy</h3><p>触发 <code>destroy</code> 事件。请注意这个事件触发的时机，在它之前我们已经销毁的 DOM 元素，因此，你不能在 <code>destroy</code> 事件中操作 DOM 树。</p>
+<h3 id="9-_从_ComponentManager_中注销组件">9. 从 ComponentManager 中注销组件</h3><p>我们在初始化阶段，将组件注册到 ComponentManager 中，就像为每个组件办理身份证并备案.现在，我们理应为其销户，将组件从 ComponentManager 中注销。</p>
+<p>有趣的是，ComponentManager 的管理方式和我们现实生活中很像。注销组件仅仅代表组件不受 ComponentManager 管理，你不再能通过 <code>Ext.getCmp()</code> 得到它，然而并不代表组件真正被销毁。就像你去注销身份证，并不代表本人已经死亡。当然对于组件，尤其是 ExtJS 提供的现有组件，从 ComponentManager 中注销前应该会被销毁。</p>
+<h3 id="10-_解除事件绑定">10. 解除事件绑定</h3><p>此步骤解除的是 ExtJS 组件的事件。</p>
+<h2 id="模板方法模式">模板方法模式</h2><p>如果你有兴趣研究得更深入些，<strong>模板方法模式</strong> 是你必须理解的设计模式。模板方法模式大致的思路是，定义一个操作中的代码骨架，将一些具体的步骤延迟到子类中实现，使得子类可以不改变代码结构即可改写或扩展某些特定步骤。它非常适合生命周期过程的控制。</p>
+<p>这里给出 Java 实现模板方法模式的代码示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">onRender</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">afterRender</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">render</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        onRender();</span><br><span class="line">        afterRender()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GridPanel</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onRender</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterRender</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ExtJS 使用此设计模式实现生命周期过程的控制，它提供了足够多的模板方法供子类扩展。例如我们之前讲到的 <code>initComponent</code>、<code>onRender</code>、<code>afterRender</code> 和 <code>onDestroy</code> 等，它们均是在父类中提供骨干实现甚至空实现，然后在子类中不断地扩展。如果你打算研究 ExtJS 的源码，一定要先掌握该设计模式。</p>
+<h2 id="模板方法_OR_事件？">模板方法 OR 事件？</h2><p>有一个问题，我想用过一段时间 ExtJS 并思考过的人一定疑惑过：当我们扩展一个组件时，究竟是覆盖实现自己的模板方法，还是为其绑定事件呢？例如我们想在组件销毁前做些自己的操作，是实现 <code>beforeDestroy</code> 方法还是绑定 <code>beforedestroy</code> 事件来处理呢？</p>
+<p>ExtJS 提供了相当丰富的API，丰富到让人觉得混乱。从代码功能上讲，两者几乎是一样的，你可以随你的喜好来决定。而从设计上讲，两者确实有些区别。我不敢说“什么情况下用哪种方式一定最好”，毕竟同一项目中，一致的设计、一致的代码风格会更加重要，你应该优先遵从项目要求。ExtJS 官方也并没给出解释，我只是谈谈我的体会。</p>
+<p>我觉得，当你继承某组件来自定义一个组件时，应该优先使用模板方法来扩展功能。在你的组件内部，尽可能地不要绑定事件。事件机制应该提供更大范围的解耦，而组件之间的继承关系，相对来说耦合度要高许多。当你定义好组件，并在其它场合使用它时，使用事件可能更好。通过在 controller 中绑定事件，将两个或多个组件之间的调用关系分离，各组件只关注自己的行为能力，只需要关心自己能做什么即可，而不用在意有哪些其它组件会调用它。如果用事件的方式代替模板方法，常常会造成组件自己声明事件，自己触发事件，又自己绑定事件的尴尬情况。这有点像你单身一人住，做好早饭时吆喝了一声：“早饭做好了！”，然后一个人默默地坐下来吃饭。省省吧，别吆喝了直接吃！</p>
+<p>基于以上思路，我认为下面的代码并不理想：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'MyPanel'</span>, &#123;</span><br><span class="line">    initComponent: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.on(<span class="string">'beforedestroy'</span>, <span class="keyword">this</span>.myBeforeDestroy);</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    myBeforeDestroy: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>现在你知道了 ExtJS 组件的全部生命周期过程，你也知道了如何用模板方法或绑定事件的方式扩展它，选一个你喜欢的组件，把它提供的全部模板方法、全部事件(ExtJS 的每个组件都有自己的新扩展，并不局限于本文章介绍的基础过程)都扩展一下，哪怕只 <code>console.log</code> 一下，来看看它是怎么执行的吧！</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ExtJS核心概念系列文章/" rel="tag">#ExtJS核心概念系列文章</a>
+          
+            <a href="/tags/extjs/" rel="tag">#extjs</a>
+          
+            <a href="/tags/javascript/" rel="tag">#javascript</a>
+          
+            <a href="/tags/web/" rel="tag">#web</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/721201507/" rel="prev">ExtJS 核心概念 - 事件模型</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/626201506/" rel="next">ExtJS 核心概念 - 类系统</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+
+          <div class="comments" id="comments">
+            <div id="q_share">  
+
+<style type="text/css">
+.bdsharebuttonbox a {
+	border-bottom: none;
+}
+</style>
+<div style="color:#999;">
+    <span id="busuanzi_container_page_pv">
+    	本文已被阅读
+    	<span id="busuanzi_value_page_pv"></span>
+    	次，若是感觉写得还不错就分享一下 :)
+    </span>
+</div>
+<div class="bdsharebuttonbox">
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="bds_more" data-cmd="more"></a>
+</div>
+<script>
+window._bd_share_config = {
+	"common": { 
+		"bdSnsKey": {},
+		"bdText": "",
+		"bdMini": "2",
+		"bdMiniList": [
+			"mshare", "weixin","renren",
+			"tqf","tieba","douban","sqq","youdao",
+		],
+		"bdPic":"",
+		"bdStyle":"1",
+		"bdSize":"24"
+	},
+	"share":{}
+};
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+ </div>
+            
+              <div class="ds-thread" data-thread-key="posts/709201507/"
+                   data-title="ExtJS 核心概念 - 组件的生命周期" data-url="http://zhangqiang.work/posts/709201507/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpeg" alt="绿豆爸爸" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">绿豆爸爸</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ssbunny" target="_blank">github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://coding.net/u/zhangqiang" target="_blank">coding.net</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.kyletang.work" target="_blank">唐老师的博客</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-text">初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_配置应用"><span class="nav-text">1. 配置应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_注册事件"><span class="nav-text">2. 注册事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_生成ID"><span class="nav-text">3. 生成ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-_实例化插件"><span class="nav-text">4. 实例化插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-_initComponent"><span class="nav-text">5. initComponent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-_组件注册到_ComponentManager_中"><span class="nav-text">6. 组件注册到 ComponentManager 中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-_增加_observable_和_state"><span class="nav-text">7. 增加 observable 和 state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-_注册状态事件_resize"><span class="nav-text">8. 注册状态事件 resize</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-_初始化插件"><span class="nav-text">9. 初始化插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-_处理_ComponentLoader"><span class="nav-text">10. 处理 ComponentLoader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-_进入渲染阶段"><span class="nav-text">11. 进入渲染阶段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染"><span class="nav-text">渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_触发_beforerender"><span class="nav-text">1. 触发 beforerender</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_缓存"><span class="nav-text">2. 缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_处理浮动"><span class="nav-text">3. 处理浮动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-_设置容器"><span class="nav-text">4. 设置容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-_onRender"><span class="nav-text">5. onRender</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-_设置_hideMode_和_overCls"><span class="nav-text">6. 设置 hideMode 和 overCls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-_触发_render"><span class="nav-text">7. 触发 render</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-_afterRender"><span class="nav-text">8. afterRender</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-_触发_afterrender"><span class="nav-text">9. 触发 afterrender</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-_设置_hidden"><span class="nav-text">10. 设置 hidden</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#销毁"><span class="nav-text">销毁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_触发_beforedestroy"><span class="nav-text">1. 触发 beforedestroy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_beforeDestroy"><span class="nav-text">2. beforeDestroy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_注销浮动"><span class="nav-text">3. 注销浮动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-_从父容器中删除"><span class="nav-text">4. 从父容器中删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-_onDestroy"><span class="nav-text">5. onDestroy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-_销毁插件"><span class="nav-text">6. 销毁插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-_解除_HTML_事件绑定并销毁元素"><span class="nav-text">7. 解除 HTML 事件绑定并销毁元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-_触发_destroy"><span class="nav-text">8. 触发 destroy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-_从_ComponentManager_中注销组件"><span class="nav-text">9. 从 ComponentManager 中注销组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-_解除事件绑定"><span class="nav-text">10. 解除事件绑定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板方法模式"><span class="nav-text">模板方法模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板方法_OR_事件？"><span class="nav-text">模板方法 OR 事件？</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">绿豆爸爸</span>
+  <span>&nbsp;&nbsp;&nbsp;(感谢 Github 、 Hexo 、 NexT 的支持。）</span>
+</div>
+
+<div>
+  <span id="busuanzi_container_site_pv">
+    您是本站的第 <span style="color:green" id="busuanzi_value_site_uv"></span> 位访客，
+    我可怜的博客已被猛戳了 <span style="color:green" id="busuanzi_value_site_pv"></span> 下。
+  </span>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ssbunny"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

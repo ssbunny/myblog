@@ -1,0 +1,953 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。" />
+
+
+
+  <meta name="keywords" content="css,web," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="总结归纳了常用的 css 布局技巧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS 布局技巧">
+<meta property="og:url" content="http://zhangqiang.work/posts/905201509/index.html">
+<meta property="og:site_name" content="ssbunny' blog">
+<meta property="og:description" content="总结归纳了常用的 css 布局技巧。">
+<meta property="og:updated_time" content="2015-09-25T00:56:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS 布局技巧">
+<meta name="twitter:description" content="总结归纳了常用的 css 布局技巧。">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'hide'
+  };
+</script>
+
+  <title> CSS 布局技巧 | ssbunny' blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?219062a13ded246daaa92ec44ebc0fa8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">ssbunny' blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              CSS 布局技巧
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-05T15:56:30+08:00" content="2015-09-05">
+            2015-09-05
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Coding/" itemprop="url" rel="index">
+                  <span itemprop="name">Coding</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/posts/905201509/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="posts/905201509/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>为了方便演示，所有的示例外框采用如下样式用来防止拖拽时超出本文章的布局：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.demo</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#EEE</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> auto</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.resizeable</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">resize</span>:<span class="value"> both</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>(注：部分示例效果在手机上无法完整显示。)</p>
+<style>
+.resizeable {
+    position: relative;
+    resize: both;
+}
+.resizeable:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
+    width: 0;
+    height: 0;
+    border-bottom: 20px solid #000;
+    opacity: .3;
+    border-left: 20px solid transparent;
+}
+.demo {
+    border: 1px solid #EEE;
+    overflow: auto;
+    height: 200px;
+    margin-bottom: 8px;
+    position: relative;
+}
+</style>
+
+<h2 id="横向布局">横向布局</h2><h3 id="1-左定宽，右适应">1.左定宽，右适应</h3><p>核心思路是让左边的浮动，右边通过 <code>margin-left</code> 以留出左边的距离。<br>实际使用时，注意配合 <code>overflow</code> 属性，让上级标签合理地消除浮动。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.d1</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">140px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d1</span> <span class="class">.left</span>,</span><br><span class="line"><span class="class">.d1</span> <span class="class">.right</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d1</span> <span class="class">.left</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> red</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d1</span> <span class="class">.right</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> blue</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"demo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"d1 resizeable"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"left"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"right"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<style>
+.d1 {
+    height: 140px;
+    width: 300px;
+    overflow: hidden;
+}
+.d1 .left,
+.d1 .right {
+    height: 100%;
+}
+.d1 .left {
+    float: left;
+    width: 100px;
+    background-color: red;
+}
+.d1 .right {
+    margin-left: 100px;
+    background-color: blue;
+}
+</style>
+
+<div class="demo"><div class="d1 resizeable"><div class="left"></div><div class="right"></div></div></div>
+
+
+<p><strong>变种</strong>：也可以通过给左侧元素增加 <code>position: absolute</code> 属性实现此布局，思路基本相同。<br>使用时注意上级元素也要指定 <code>position</code> 以限制左侧的定位范围。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.d1</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">140px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d1</span> <span class="class">.left</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> red</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-右定宽，左适应">2.右定宽，左适应</h3><p>思路和上面完全相同，只需要把左右的顺序反过来。从略。</p>
+<h3 id="3-左右同时适应">3.左右同时适应</h3><p>此情况两侧均浮动且使用百分比设置宽度即可。但是有一些技巧需要注意：</p>
+<ul>
+<li><p>如果需要设置 <code>margin</code>、<code>border</code> 等属性，可考虑外围增加一层元素作为包装，以防止右侧被挤到下一行。<br>在包装元素上设置宽度百分比，同时 <code>border</code> 设置为 <code>0</code>，在内部元素设置 <code>width: 100%</code>，按需设置 <code>margin</code>、<br><code>border</code> 等属性；</p>
+</li>
+<li><p>合理使用 <code>min-width</code>、<code>max-width</code> 属性，控制宽度范围，防止屏幕分辨率的变化或浏览器尺寸的变化造成显示不正常；</p>
+</li>
+<li><p>通过响应式设计控制左右不同的显示方式。</p>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.d3</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">140px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d3</span> <span class="class">.left-wrapper</span>,</span><br><span class="line"><span class="class">.d3</span> <span class="class">.right-wrapper</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d3</span> <span class="class">.left-wrapper</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40%</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> red</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d3</span> <span class="class">.right-wrapper</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">60%</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> blue</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d3</span> <span class="class">.left</span>, <span class="class">.d3</span> <span class="class">.right</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#EEE</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">10px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">10px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">2px</span> solid <span class="hexcolor">#EEE</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"demo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"d3 resizeable"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"left-wrapper"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"left"</span>&gt;</span>left<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"right-wrapper"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"right"</span>&gt;</span>right<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<style>
+.d3 {
+    height: 140px;
+    width: 300px;
+    overflow: hidden;
+}
+.d3 .left-wrapper,
+.d3 .right-wrapper {
+    float: left;
+    height: 100%;
+    border: 0;
+}
+.d3 .left-wrapper {
+    width: 40%;
+    background-color: red;
+}
+.d3 .right-wrapper {
+    width: 60%;
+    background-color: blue;
+}
+.d3 .left, .d3 .right {
+    color: #EEE;
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid #EEE;
+}
+</style>
+
+<div class="demo"><div class="d3 resizeable"><div class="left-wrapper"><div class="left">left</div></div><div class="right-wrapper"><div class="right">right</div></div></div></div>
+
+<h3 id="4-左右定宽，中间适应">4.左右定宽，中间适应</h3><p>可采用左边左浮动，右边右浮动，中间通过 <code>margin</code> 来完成。<br>相应的，也可以使用绝对定位(参考1)。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.d4</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">140px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d4</span> <span class="class">.left</span>, <span class="class">.d4</span> <span class="class">.right</span>, <span class="class">.d4</span> <span class="class">.middle</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d4</span> <span class="class">.left</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">80px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> red</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d4</span> <span class="class">.middle</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">80px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> <span class="number">60px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> green</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.d4</span> <span class="class">.right</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">60px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> blue</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"demo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"d4 resizeable"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"right"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"left"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"middle"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<style>
+.d4 {
+    height: 140px;
+    width: 300px;
+    overflow: hidden;
+}
+.d4 .left, .d4 .right, .d4 .middle {
+    height: 100%;
+}
+.d4 .left {
+    float: left;
+    width: 80px;
+    background-color: red;
+}
+.d4 .middle {
+    margin-left: 80px;
+    margin-right: 60px;
+    background-color: green;
+}
+.d4 .right {
+    float: right;
+    width: 60px;
+    background-color: blue;
+}
+</style>
+
+<div class="demo"><div class="d4 resizeable"><div class="right"></div><div class="left"></div><div class="middle"></div></div></div>
+
+
+
+<h2 id="纵向布局">纵向布局</h2><p>多数展示型页面是不限制总高度的，但有些 dashboard 页面会让高度限制在一屏内，不出现纵向滚动条。<br>此时，灵活的纵向布局的高度控制一般需要配合使用 <code>JavasSript</code> 来实现。这里只归纳一些纯 <code>CSS</code> 技巧。</p>
+<h3 id="1-上下定高，中间适应">1.上下定高，中间适应</h3><p>通过绝对定位实现。实际使用时发现，此实现只能适用于外围大布局，<br>内部的高度控制，要么继续沿用此方式，要么通过 <code>JavasSript</code> 控制。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.v1</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">170px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.v1</span> <span class="class">.top</span>, <span class="class">.v1</span> <span class="class">.center</span>, <span class="class">.v1</span> <span class="class">.bottom</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.v1</span> <span class="class">.top</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> red</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.v1</span> <span class="class">.center</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">30px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">40px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> green</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.v1</span> <span class="class">.bottom</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">40px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> blue</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"demo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"v1 resizeable"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"top"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"center"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"bottom"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<style>
+.v1 {
+    height: 170px;
+    width: 300px;
+    overflow: hidden;
+}
+.v1 .top, .v1 .center, .v1 .bottom {
+    position: absolute;
+    width: 100%;
+}
+.v1 .top {
+    top: 0;
+    height: 30px;
+    background-color: red;
+}
+.v1 .center {
+    top: 30px;
+    bottom: 40px;
+    background-color: green;
+}
+.v1 .bottom {
+    height: 40px;
+    bottom: 0;
+    background-color: blue;
+}
+</style>
+
+<div class="demo"><div class="v1 resizeable"><div class="top"></div><div class="center"></div><div class="bottom"></div></div></div>
+
+<h3 id="2-上固定，下滚动">2.上固定，下滚动</h3><p>此情况只需要设置上面的 <code>position</code> 为 <code>fixed</code>，下面 <code>margin-top</code> 出相应的高度即可。</p>
+<p>由于 <code>fixed</code> 定位的特殊性，在不使用 frame 的情况下无法在此处给出示例。</p>
+<h2 id="居中布局">居中布局</h2><h3 id="1-_水平居中">1. 水平居中</h3><p>1) 最简单且常用的方式是设置 <code>margin: 0 auto</code> ：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.c1</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> blue</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"demo"</span> <span class="attribute">style</span>=<span class="value">"height: 40px"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"c1"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<style>
+.c1 {
+    height: 100%;
+    width: 300px;
+    margin: 0 auto;
+    background-color: blue;
+}
+</style>
+
+<div class="demo" style="height: 40px"><div class="c1"></div></div>
+
+<p>2) 也可以通过<strong>绝对定位</strong>来实现同样的效果:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.c1</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">150px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> blue</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-_垂直居中">2. 垂直居中</h3><p>通常可采用上例中绝对定位的思路来实现。示例同时水平、垂直居中的效果：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.c2</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50%</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> -<span class="number">50px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">150px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> blue</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"demo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"c2"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<style>
+.c2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -150px;
+    height: 100px;
+    width: 300px;
+    background-color: blue;
+}
+</style>
+
+<div class="demo"><div class="c2"></div></div>
+
+<p>以上写法兼容性较好，但是只适合宽度、高度固定的情况，因为需要依据它来设置 <code>margin</code> 值。<br>然而有时元素的高、宽并不能确定，而是根据内容适应，此时，需要通过使用 JavaScript<br>来计算相应的高度。当然，如果你能撇开那些使用古老浏览器的用户不管，你还可以使用 <code>css3</code><br>实现此效果：</p>
+<p>可以使用 <code>flex</code> 布局，这种方式目前只有 webkit 支持：</p>
+<style>
+.c22 {
+    height: 100%;
+
+    display: -moz-box;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+
+    display: box;
+    box-pack: center;
+    box-align: center;
+}
+.c22 .content {
+    height: 100px;
+    width: 300px;
+    background-color: blue;
+}
+.c23 {
+    height: 100%;
+    display: -webkit-flex;
+    display:         flex;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+}
+.c23 .content {
+    height: 100px;
+    width: 300px;
+    background-color: blue;
+}
+</style>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.c23</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">display</span>:<span class="value"> -webkit-flex</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">display</span>:<span class="value">         flex</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">-webkit-align-items</span>:<span class="value"> center</span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">align-items</span>:<span class="value"> center</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">-webkit-justify-content</span>:<span class="value"> center</span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> center</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.c23</span> <span class="class">.content</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> blue</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"demo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"c23"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<div class="demo"><div class="c23"><div class="content"></div></div></div>
+
+<p>或是：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.c22</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="rule"><span class="attribute">display</span>:<span class="value">-moz-box</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">-moz-box-pack</span>:<span class="value">center</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">-moz-box-align</span>:<span class="value">center</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="rule"><span class="attribute">display</span>:<span class="value"> -webkit-box</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">-webkit-box-pack</span>:<span class="value"> center</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">-webkit-box-align</span>:<span class="value"> center</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="rule"><span class="attribute">display</span>:<span class="value"> box</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">box-pack</span>:<span class="value"> center</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">box-align</span>:<span class="value"> center</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.c22</span> <span class="class">.content</span> <span class="rules">&#123;</span><br><span class="line">    <span class="comment">/* 此处为模拟的尺寸，实际场景中根据内容撑起。 */</span></span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> blue</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"demo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"c22"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"content"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><div class="demo"><div class="c22"><div class="content"></div></div></div><br>(ps: 目前只有较新版本的 Firefox、Safari、Opera 以及 Chrome 支持此效果)</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag">#css</a>
+          
+            <a href="/tags/web/" rel="tag">#web</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/913201509/" rel="prev">写好程序分支控制</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/721201507/" rel="next">ExtJS 核心概念 - 事件模型</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+
+          <div class="comments" id="comments">
+            <div id="q_share">  
+
+<style type="text/css">
+.bdsharebuttonbox a {
+	border-bottom: none;
+}
+</style>
+<div style="color:#999;">
+    <span id="busuanzi_container_page_pv">
+    	本文已被阅读
+    	<span id="busuanzi_value_page_pv"></span>
+    	次，若是感觉写得还不错就分享一下 :)
+    </span>
+</div>
+<div class="bdsharebuttonbox">
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="bds_more" data-cmd="more"></a>
+</div>
+<script>
+window._bd_share_config = {
+	"common": { 
+		"bdSnsKey": {},
+		"bdText": "",
+		"bdMini": "2",
+		"bdMiniList": [
+			"mshare", "weixin","renren",
+			"tqf","tieba","douban","sqq","youdao",
+		],
+		"bdPic":"",
+		"bdStyle":"1",
+		"bdSize":"24"
+	},
+	"share":{}
+};
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+ </div>
+            
+              <div class="ds-thread" data-thread-key="posts/905201509/"
+                   data-title="CSS 布局技巧" data-url="http://zhangqiang.work/posts/905201509/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpeg" alt="绿豆爸爸" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">绿豆爸爸</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ssbunny" target="_blank">github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://coding.net/u/zhangqiang" target="_blank">coding.net</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.kyletang.work" target="_blank">唐老师的博客</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#横向布局"><span class="nav-text">横向布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-左定宽，右适应"><span class="nav-text">1.左定宽，右适应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-右定宽，左适应"><span class="nav-text">2.右定宽，左适应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-左右同时适应"><span class="nav-text">3.左右同时适应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-左右定宽，中间适应"><span class="nav-text">4.左右定宽，中间适应</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#纵向布局"><span class="nav-text">纵向布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-上下定高，中间适应"><span class="nav-text">1.上下定高，中间适应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-上固定，下滚动"><span class="nav-text">2.上固定，下滚动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#居中布局"><span class="nav-text">居中布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_水平居中"><span class="nav-text">1. 水平居中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_垂直居中"><span class="nav-text">2. 垂直居中</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">绿豆爸爸</span>
+  <span>&nbsp;&nbsp;&nbsp;(感谢 Github 、 Hexo 、 NexT 的支持。）</span>
+</div>
+
+<div>
+  <span id="busuanzi_container_site_pv">
+    您是本站的第 <span style="color:green" id="busuanzi_value_site_uv"></span> 位访客，
+    我可怜的博客已被猛戳了 <span style="color:green" id="busuanzi_value_site_pv"></span> 下。
+  </span>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ssbunny"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

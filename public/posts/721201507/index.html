@@ -1,0 +1,751 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。" />
+
+
+
+  <meta name="keywords" content="ExtJS核心概念系列文章,extjs,javascript,web," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="我们在使用 ExtJS 时，经常会为某组件绑定事件，以做相应扩展处理。创建组件时通过配置 listeners 属性即可绑定事件：
+12345678910var i = 0;var btn = Ext.create(&apos;Ext.button.Button&apos;, &amp;#123;    text: &apos;Button&apos;,    listeners: &amp;#123;        mouseover: functio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ExtJS 核心概念 - 事件模型">
+<meta property="og:url" content="http://zhangqiang.work/posts/721201507/index.html">
+<meta property="og:site_name" content="ssbunny' blog">
+<meta property="og:description" content="我们在使用 ExtJS 时，经常会为某组件绑定事件，以做相应扩展处理。创建组件时通过配置 listeners 属性即可绑定事件：
+12345678910var i = 0;var btn = Ext.create(&apos;Ext.button.Button&apos;, &amp;#123;    text: &apos;Button&apos;,    listeners: &amp;#123;        mouseover: functio">
+<meta property="og:image" content="http://zhangqiang.work/event_01.png">
+<meta property="og:image" content="http://zhangqiang.work/event_02.gif">
+<meta property="og:image" content="http://zhangqiang.work/event_03.gif">
+<meta property="og:updated_time" content="2015-10-16T08:09:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ExtJS 核心概念 - 事件模型">
+<meta name="twitter:description" content="我们在使用 ExtJS 时，经常会为某组件绑定事件，以做相应扩展处理。创建组件时通过配置 listeners 属性即可绑定事件：
+12345678910var i = 0;var btn = Ext.create(&apos;Ext.button.Button&apos;, &amp;#123;    text: &apos;Button&apos;,    listeners: &amp;#123;        mouseover: functio">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'hide'
+  };
+</script>
+
+  <title> ExtJS 核心概念 - 事件模型 | ssbunny' blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?219062a13ded246daaa92ec44ebc0fa8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">ssbunny' blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              ExtJS 核心概念 - 事件模型
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-07-21T14:37:04+08:00" content="2015-07-21">
+            2015-07-21
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Coding/" itemprop="url" rel="index">
+                  <span itemprop="name">Coding</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/posts/721201507/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="posts/721201507/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>我们在使用 ExtJS 时，经常会为某组件绑定事件，以做相应扩展处理。创建组件时通过配置 <code>listeners</code> 属性即可绑定事件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> btn = Ext.create(<span class="string">'Ext.button.Button'</span>, &#123;</span><br><span class="line">    text: <span class="string">'Button'</span>,</span><br><span class="line">    listeners: &#123;</span><br><span class="line">        mouseover: <span class="function"><span class="keyword">function</span> (<span class="params">btn</span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(btn.getText() + ++i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    renderTo: <span class="built_in">document</span>.body</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>也可以通过 <code>on</code> 方法给组件实例绑定事件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">btn.on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">'clicked'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>以上方法已经能解决我们使用 ExtJS 事件时绝大多数需求。然而当我们扩展或自定义一个组件时，常常需要注册自定义的事件并在合适的时机触发它们。</p>
+<p>本篇文章要讲的事件模型分为三部分，以上为其一 —— 绑定：</p>
+<ul>
+<li>注册</li>
+<li>触发</li>
+<li>绑定</li>
+</ul>
+<h2 id="ExtJS事件模型完整示例">ExtJS事件模型完整示例</h2><p>先来看一个较为完整的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'MyButton'</span>, &#123;</span><br><span class="line">    extend: <span class="string">'Ext.button.Button'</span>,</span><br><span class="line"></span><br><span class="line">    initComponent: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.callParent();</span><br><span class="line">        <span class="keyword">this</span>.addEvents(<span class="string">'blink'</span>);  <span class="comment">// &lt;------ 注册</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    shake: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Give your body a bit of a shake!'</span>);</span><br><span class="line">        <span class="keyword">this</span>.fireEvent(<span class="string">'blink'</span>, <span class="keyword">this</span>); <span class="comment">// &lt;------ 触发</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Take a break!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> mybtn = Ext.create(<span class="string">'MyButton'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &lt;------ 绑定</span></span><br><span class="line">mybtn.on(<span class="string">'blink'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Begin to blink!'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">mybtn.on(<span class="string">'blink'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Begin to blink, again!'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">mybtn.shake();</span><br></pre></td></tr></table></figure>
+<p>执行结果如下：</p>
+<p><img src="event_01.png" alt="示例结果"></p>
+<p>从代码中可以看出，对于 <code>shake</code> 方法只需要在合适的时机触发 <code>blink</code> 事件，它不需要知道有谁绑定了该事件，也不关心事件的执行过程，从而将 <code>blink</code> 这一特定行为从 <code>shake</code> 中解耦。</p>
+<h2 id="观察者模式">观察者模式</h2><p>理解 ExtJS 的事件机制，需要先了解 <strong>观察者模式</strong>。该模式维护了一个被观察对象(subject)与其观察者(observer)之间的一对多关系，当对象状态变化时，会自动通知并更新观察者。</p>
+<p><img src="event_02.gif" alt="观察者模式类图"></p>
+<p>一个被观察对象和两个观察者调用关系时序图如下：</p>
+<p><img src="event_03.gif" alt="观察者模式时序图"></p>
+<p>剥离出精简的代码实现示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Subject</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.observers = [];</span><br><span class="line">&#125;</span><br><span class="line">Subject.prototype = &#123;</span><br><span class="line">    addObserver: <span class="function"><span class="keyword">function</span> (<span class="params">ob</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.observers.push(ob);</span><br><span class="line">    &#125;,</span><br><span class="line">    removeObserver: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// remove...</span></span><br><span class="line">    &#125;,</span><br><span class="line">    notify: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> i = <span class="number">0</span>, len = <span class="keyword">this</span>.observers.length;</span><br><span class="line">        <span class="keyword">for</span> (; i &lt; len; ++i) &#123;</span><br><span class="line">            <span class="keyword">this</span>.observers[i].update();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Observer</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.update = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">' was updated!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> zs = <span class="keyword">new</span> Observer(<span class="string">'zhangsan'</span>);</span><br><span class="line"><span class="keyword">var</span> ls = <span class="keyword">new</span> Observer(<span class="string">'lisi'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> subject = <span class="keyword">new</span> Subject();</span><br><span class="line">subject.addObserver(zs);</span><br><span class="line">subject.addObserver(ls);</span><br><span class="line">subject.notify();</span><br></pre></td></tr></table></figure>
+<p>关于观察者模式的书籍、网络资源极其丰富，请参考相应介绍。</p>
+<h2 id="发布/订阅模式">发布/订阅模式</h2><p>发布/订阅模式可以被理解为一种特殊的观察者模式。订阅者和发布者并不直接耦合，而是通过注册事件的方式，因此较之观察者模式，其耦合度更低。</p>
+<p>这里摘录 JavaScript 大神 addyosmani 实现的发布/订阅模式代码供参考：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"> window, doc, undef </span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> topics = &#123;&#125;,</span><br><span class="line">        subUid = -<span class="number">1</span>,</span><br><span class="line">        pubsubz =&#123;&#125;;</span><br><span class="line"></span><br><span class="line">    pubsubz.publish = <span class="function"><span class="keyword">function</span> (<span class="params"> topic, args </span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!topics[topic]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> subscribers = topics[topic],</span><br><span class="line">                len = subscribers ? subscribers.length : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (len--) &#123;</span><br><span class="line">                subscribers[len].func(topic, args);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    pubsubz.subscribe = <span class="function"><span class="keyword">function</span> (<span class="params"> topic, func </span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!topics[topic]) &#123;</span><br><span class="line">            topics[topic] = [];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> token = (++subUid).toString();</span><br><span class="line">        topics[topic].push(&#123;</span><br><span class="line">            token: token,</span><br><span class="line">            func: func</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> token;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    pubsubz.unsubscribe = <span class="function"><span class="keyword">function</span> (<span class="params"> token </span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> m <span class="keyword">in</span> topics) &#123;</span><br><span class="line">            <span class="keyword">if</span> (topics[m]) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, j = topics[m].length; i &lt; j; i++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (topics[m][i].token === token) &#123;</span><br><span class="line">                        topics[m].splice(i, <span class="number">1</span>);</span><br><span class="line">                        <span class="keyword">return</span> token;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    getPubSubz = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pubsubz;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">window</span>.pubsubz = getPubSubz();</span><br><span class="line"></span><br><span class="line">&#125;( <span class="keyword">this</span>, <span class="keyword">this</span>.document ));</span><br></pre></td></tr></table></figure>
+<h2 id="事件模型的缺陷">事件模型的缺陷</h2><p>事件模型虽然能够较好的解耦，为编码工作带来灵活性，然而它也有较为明显的缺陷：</p>
+<p><strong>1. 发布者无法得知订阅者中产生的错误</strong></p>
+<p>例如之前的示例，如果订阅者中抛出了异常：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mybtn.on(<span class="string">'blink'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    Ext.Error.raise(<span class="string">'I am too old to blink!'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>我们无法在发布者中得知这一情况。下面的代码无法起作用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line">shake: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Give your body a bit of a shake!'</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.fireEvent(<span class="string">'blink'</span>, <span class="keyword">this</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        <span class="comment">// do something</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Take a break!'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尽管你可以通过回调方式，将 Error 对象作为回调参数反向传回给发布者，但这样带来的编码复杂度是很高的，而且不能保证每个订阅者都正确捕获异常并传回。同时，发布者自己也会因为异常处理而变得臃肿，且它无法很好的识别异常类型，更无从得知合适的处理逻辑。</p>
+<p><strong>2. 流程控制变得复杂</strong></p>
+<p>事件的订阅过程相对较为分散，通常很难确实绑定的顺序。如果你需要做一系列操作，通过事件模型来处理的话，会把问题变得极为复杂繁琐。</p>
+<p><strong>3. 多个订阅者之间无法通讯，它们互相不了解彼此做了哪些操作</strong></p>
+<p>我发现，这一问题在实际使用 ExtJS 时暴露的极为普遍。很多人习惯通过绑定事件时的回调参数修改此对象，这样一来，由于其它订阅者并不知道他做了什么操作，极有可能得到一个不正确的对象状态。</p>
+<p>例如，张三在某个 JavaScript 源文件中通过绑定事件修改了 button 的状态：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mybtn.on(<span class="string">'blink'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">btn</span>) </span>&#123;</span><br><span class="line">    btn.setText(<span class="string">'MyButton'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>而李四并不知道张三做了什么，他想当然地基于 button 的状态做了一些操作：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mybtn.on(<span class="string">'blink'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">btn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> text = btn.getText();</span><br><span class="line">    <span class="keyword">if</span> (text === <span class="string">'Button'</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'I am a button!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>遗憾的是，如果李四的代码先于张三的执行，则李四能得到正确结果；如果张三的代码先于李四的执行，则李四不能得到正确结果。这显然使得代码结构变得混乱，本来通过事件模型解耦而不相关的代码，又无形地被耦合起来了。而更痛苦的是这样的代码变得更分散，很可能彼此并不知道他人的存在。</p>
+<p><strong>4. 代码调试变得困难</strong></p>
+<p>事件注册到容器中，发布者和订阅者不存在直接调用关系，因此代码调试相对困难一些。</p>
+<h2 id="备注">备注</h2><p>button 组件的 <code>handler</code> 不是事件。ExtJS中配置的 <code>handler</code> 只是一个方法调用，不进行事件绑定；</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ExtJS核心概念系列文章/" rel="tag">#ExtJS核心概念系列文章</a>
+          
+            <a href="/tags/extjs/" rel="tag">#extjs</a>
+          
+            <a href="/tags/javascript/" rel="tag">#javascript</a>
+          
+            <a href="/tags/web/" rel="tag">#web</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/905201509/" rel="prev">CSS 布局技巧</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/709201507/" rel="next">ExtJS 核心概念 - 组件的生命周期</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+
+          <div class="comments" id="comments">
+            <div id="q_share">  
+
+<style type="text/css">
+.bdsharebuttonbox a {
+	border-bottom: none;
+}
+</style>
+<div style="color:#999;">
+    <span id="busuanzi_container_page_pv">
+    	本文已被阅读
+    	<span id="busuanzi_value_page_pv"></span>
+    	次，若是感觉写得还不错就分享一下 :)
+    </span>
+</div>
+<div class="bdsharebuttonbox">
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="bds_more" data-cmd="more"></a>
+</div>
+<script>
+window._bd_share_config = {
+	"common": { 
+		"bdSnsKey": {},
+		"bdText": "",
+		"bdMini": "2",
+		"bdMiniList": [
+			"mshare", "weixin","renren",
+			"tqf","tieba","douban","sqq","youdao",
+		],
+		"bdPic":"",
+		"bdStyle":"1",
+		"bdSize":"24"
+	},
+	"share":{}
+};
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+ </div>
+            
+              <div class="ds-thread" data-thread-key="posts/721201507/"
+                   data-title="ExtJS 核心概念 - 事件模型" data-url="http://zhangqiang.work/posts/721201507/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpeg" alt="绿豆爸爸" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">绿豆爸爸</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ssbunny" target="_blank">github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://coding.net/u/zhangqiang" target="_blank">coding.net</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.kyletang.work" target="_blank">唐老师的博客</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ExtJS事件模型完整示例"><span class="nav-text">ExtJS事件模型完整示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式"><span class="nav-text">观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布/订阅模式"><span class="nav-text">发布/订阅模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件模型的缺陷"><span class="nav-text">事件模型的缺陷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-text">备注</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">绿豆爸爸</span>
+  <span>&nbsp;&nbsp;&nbsp;(感谢 Github 、 Hexo 、 NexT 的支持。）</span>
+</div>
+
+<div>
+  <span id="busuanzi_container_site_pv">
+    您是本站的第 <span style="color:green" id="busuanzi_value_site_uv"></span> 位访客，
+    我可怜的博客已被猛戳了 <span style="color:green" id="busuanzi_value_site_pv"></span> 下。
+  </span>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ssbunny"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

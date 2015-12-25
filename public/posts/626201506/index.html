@@ -1,0 +1,834 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。" />
+
+
+
+  <meta name="keywords" content="ExtJS核心概念系列文章,extjs,javascript,web," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="[本内容只针对 ExtJS 4.x 和 ExtJS 5.x 版本]
+JavaScript 是一门富有表现力的编程语言，它既可以进行面向对象编程(OOP)，也可以进行函数式编程(FP)。函数是 JavaScript 的一等公民。面向对象编程风格相对要简单一些，这也是 ExtJS 的选择。
+传统方式我们先来看一下传统的使用 JavaScript 实现 OOP 的代码：
+1234567891011121">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ExtJS 核心概念 - 类系统">
+<meta property="og:url" content="http://zhangqiang.work/posts/626201506/index.html">
+<meta property="og:site_name" content="ssbunny' blog">
+<meta property="og:description" content="[本内容只针对 ExtJS 4.x 和 ExtJS 5.x 版本]
+JavaScript 是一门富有表现力的编程语言，它既可以进行面向对象编程(OOP)，也可以进行函数式编程(FP)。函数是 JavaScript 的一等公民。面向对象编程风格相对要简单一些，这也是 ExtJS 的选择。
+传统方式我们先来看一下传统的使用 JavaScript 实现 OOP 的代码：
+1234567891011121">
+<meta property="og:image" content="http://zhangqiang.work/classsystem_01.png">
+<meta property="og:image" content="http://zhangqiang.work/classsystem_02.png">
+<meta property="og:image" content="http://zhangqiang.work/classsystem_03.png">
+<meta property="og:image" content="http://zhangqiang.work/classsystem_04.png">
+<meta property="og:image" content="http://zhangqiang.work/classsystem_05.png">
+<meta property="og:image" content="http://zhangqiang.work/classsystem_06.png">
+<meta property="og:image" content="http://zhangqiang.work/classsystem_07.png">
+<meta property="og:updated_time" content="2015-10-16T06:04:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ExtJS 核心概念 - 类系统">
+<meta name="twitter:description" content="[本内容只针对 ExtJS 4.x 和 ExtJS 5.x 版本]
+JavaScript 是一门富有表现力的编程语言，它既可以进行面向对象编程(OOP)，也可以进行函数式编程(FP)。函数是 JavaScript 的一等公民。面向对象编程风格相对要简单一些，这也是 ExtJS 的选择。
+传统方式我们先来看一下传统的使用 JavaScript 实现 OOP 的代码：
+1234567891011121">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'hide'
+  };
+</script>
+
+  <title> ExtJS 核心概念 - 类系统 | ssbunny' blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?219062a13ded246daaa92ec44ebc0fa8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">ssbunny' blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              ExtJS 核心概念 - 类系统
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-06-26T09:07:13+08:00" content="2015-06-26">
+            2015-06-26
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Coding/" itemprop="url" rel="index">
+                  <span itemprop="name">Coding</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/posts/626201506/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="posts/626201506/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p><em>[本内容只针对 ExtJS 4.x 和 ExtJS 5.x 版本]</em></p>
+<p>JavaScript 是一门富有表现力的编程语言，它既可以进行面向对象编程(OOP)，也可以进行函数式编程(FP)。函数是 JavaScript 的一等公民。面向对象编程风格相对要简单一些，这也是 ExtJS 的选择。</p>
+<h2 id="传统方式">传统方式</h2><p>我们先来看一下传统的使用 JavaScript 实现 OOP 的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Programmer = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.lang = <span class="string">'java'</span>;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">''</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Programmer.prototype = &#123;</span><br><span class="line">    isProgrammer: <span class="literal">true</span>,</span><br><span class="line">    setName: <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;,</span><br><span class="line">    program: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">' codes in '</span> + <span class="keyword">this</span>.lang + <span class="string">'.'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们借用函数对象模拟出“类“的概念，并创建了 <code>Programmer</code> 类。同时，给此类增加了两个属性： <code>name</code> 和 <code>lang</code> 。紧接着，我们在 Programmer 的原型对象上增加了 <code>isProgrammer</code> 属性和 <code>setName</code> 、<code>program</code> 方法(函数对象的属性与原型对象的属性是有区别的，但不在本教程的讨论范围)。</p>
+<p>现在来看看如何创建 <code>Programmer</code> 的实例并调用其方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> zhangsan = <span class="keyword">new</span> Programmer();</span><br><span class="line">zhangsan.setName(<span class="string">'ZhangSan'</span>);</span><br><span class="line"><span class="keyword">if</span> (zhangsan.isProgrammer) &#123;</span><br><span class="line">    zhangsan.program();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>控制台将打印出：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZhangSan codes <span class="keyword">in</span> java.</span><br></pre></td></tr></table></figure>
+<p>这看上去并不难。那么如果我们想模拟出“子类”及“继承”的概念呢？我想先给你看一下它的代码实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Geek = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    Geek.superclass.constructor.call(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">this</span>.niubility = <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br><span class="line">Geek.prototype = <span class="keyword">new</span> Programmer();</span><br><span class="line">Geek.superclass = Programmer.prototype;</span><br><span class="line"></span><br><span class="line">Geek.prototype.superSkill = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'kill himself.'</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们实现了 <code>Programmer</code> 的子类 <code>Geek</code> 并为其扩展了 <code>niubility</code> 属性和 <code>superSkill</code> 方法。这里将 <code>Geek</code> 的原型指向 <code>Programmer</code> 的一个实例，以此来获得 <code>Programmer</code> 上的所有属性及方法。除此之外，我们还将 <code>Geek</code> 的 <code>superclass</code> 指向 <code>Programmer.prototype</code> ，这么一来便可以通过 <code>superclass</code> 引用调用并继承父类方法。</p>
+<p>如果上面的代码对你来说并不容易理解，那么你可能需要补充一下 JavaScript 的基础知识。虽然 ExtJS 为我们隐藏了诸多实现细节，但若想有所提高并了解 ExtJS 的工作原理，准确理解以上代码是极为必要的。更多 JavaScript 面向对象编程的知识，我推荐你阅读<br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript" target="_blank" rel="external">MDN相关文档</a> 。</p>
+<p>接下来构造一个 <code>Geek</code> 实例并调用其方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lisi = <span class="keyword">new</span> Geek();</span><br><span class="line">lisi.setName(<span class="string">'LiSi'</span>);</span><br><span class="line">lisi.lang = <span class="string">'JavaScript'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (lisi.isProgrammer &amp;&amp; lisi.niubility) &#123;</span><br><span class="line">    lisi.program();</span><br><span class="line">    <span class="built_in">console</span>.log(lisi.name + <span class="string">' can '</span> + lisi.superSkill());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>控制台将打印出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LiSi codes <span class="keyword">in</span> JavaScript.</span><br><span class="line">LiSi can <span class="built_in">kill</span> himself.</span><br></pre></td></tr></table></figure>
+<h2 id="ExtJS的方式">ExtJS的方式</h2><p>从上一小节可以看出，传统的面向对象编程方式稍有些复杂，而且代码较为分散，继承关系也不直观。ExtJS 为了克服此问题，在 4.0+ 版本中引入了全新的类系统。让我们先来看看如何用 ExtJS 的方式实现上一节的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Programmer'</span>, &#123;</span><br><span class="line">    isProgrammer: <span class="literal">true</span>,</span><br><span class="line">    constructor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.lang = <span class="string">'java'</span>;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">''</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    setName: <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;,</span><br><span class="line">    program: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">' codes in '</span> + <span class="keyword">this</span>.lang + <span class="string">'.'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> zhangsan = Ext.create(<span class="string">'Programmer'</span>);</span><br><span class="line">zhangsan.setName(<span class="string">'ZhangSan'</span>);</span><br><span class="line"><span class="keyword">if</span> (zhangsan.isProgrammer) &#123;</span><br><span class="line">    zhangsan.program();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现继承关系也非常简单直观，来看子类的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Geek'</span>, &#123;</span><br><span class="line">    extend: <span class="string">'Programmer'</span>,</span><br><span class="line">    constructor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.callParent();</span><br><span class="line">        <span class="keyword">this</span>.niubility = <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    superSkill: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'kill himself.'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> lisi = Ext.create(<span class="string">'Geek'</span>);</span><br><span class="line">lisi.setName(<span class="string">'LiSi'</span>);</span><br><span class="line">lisi.lang = <span class="string">'JavaScript'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (lisi.isProgrammer &amp;&amp; lisi.niubility) &#123;</span><br><span class="line">    lisi.program();</span><br><span class="line">    <span class="built_in">console</span>.log(lisi.name + <span class="string">' can '</span> + lisi.superSkill());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，ExtJS 类系统的核心即为 <strong>Ext.define</strong> 函数，熟悉 Java 的开发人员可以将其理解为 ExtJS 的定义类的语法。继承关系则可以通过 extend 属性指定。从 4.0+ 版本开始，ExtJS 整个框架都基于 <code>Ext.define</code> 来构建，除了继承以外，该方法还实现了其它诸多类系统特性，让我们通过代码的方式展示一下 <code>Ext.define</code> 的用法。</p>
+<h2 id="Ext-define的用法">Ext.define的用法</h2><h3 id="1-定义一个类">1.定义一个类</h3><p>正如前面看到的，<code>Ext.define</code> 可以用来定义一个类：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Programmer'</span>, &#123;</span><br><span class="line">    constructor: <span class="function"><span class="keyword">function</span> (<span class="params">language</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (language) &#123;</span><br><span class="line">            <span class="keyword">this</span>.language = language;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    language: <span class="string">'[default]'</span>,</span><br><span class="line">    code: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">'I\'m coding in '</span> + <span class="keyword">this</span>.language + <span class="string">'.'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> zhangsan = <span class="keyword">new</span> Programmer(<span class="string">'Java'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(zhangsan.code()); <span class="comment">// I'm coding in Java.</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-继承">2.继承</h3><p>还有继承：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'JavaScripter'</span>, &#123;</span><br><span class="line">    extend: <span class="string">'Programmer'</span>,</span><br><span class="line">    constructor: <span class="function"><span class="keyword">function</span> (<span class="params">skilled</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.skilled = skilled || <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">this</span>.callParent([<span class="string">'JavaScript'</span>]);</span><br><span class="line">    &#125;,</span><br><span class="line">    skill: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">this</span>.code() + <span class="string">'I am good at '</span> + <span class="keyword">this</span>.skilled + <span class="string">'.'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> lisi = <span class="keyword">new</span> JavaScripter(<span class="string">'ExtJS'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(lisi.skill()); <span class="comment">// I'm coding in JavaScript.I am good at ExtJS.</span></span><br></pre></td></tr></table></figure>
+<p>继承使用 <code>extend</code> 属性实现，在构造器或方法中，通过 <code>this.callParent()</code> 以调用父类方法。</p>
+<h3 id="3-Config">3.Config</h3><p>定义在 <code>config</code> 中的属性会自动生成 getters/setters： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Programmer'</span>, &#123;</span><br><span class="line">    constructor: <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.initConfig(config);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    config: &#123;</span><br><span class="line">        language: <span class="string">''</span>,</span><br><span class="line">        isGeek: <span class="literal">false</span>,</span><br><span class="line">        hasMoney: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> zhangsan = <span class="keyword">new</span> Programmer(&#123;</span><br><span class="line">    language: <span class="string">'JavaScript'</span>,</span><br><span class="line">    isGeek: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(zhangsan.getLanguage());</span><br><span class="line"><span class="built_in">console</span>.log(zhangsan.getHasMoney());</span><br><span class="line"><span class="built_in">console</span>.log(zhangsan.hasMoney);</span><br><span class="line"><span class="built_in">console</span>.dir(zhangsan);</span><br></pre></td></tr></table></figure>
+<p>执行结果如下： </p>
+<p><img src="classsystem_01.png" alt="classsystem_01"></p>
+<p>需要<em>注意</em>的是，如果不是继承自现有组件，而是自己定义新类，需要在 <code>constructor</code> 中明确调用 <code>initConfig()</code> 方法。 </p>
+<p>ExtJS 框架并没有对 <code>isXxx</code> 、<code>hasXxx</code> 方法做特殊处理，即示例中默认并<strong>不存在</strong> isGeek() 方法，可以访问 <code>isGee</code> 属性获得其值。然而，<code>isXxx</code> 属性通常更适合作为类的成员对象(属性)，不需放入config中。</p>
+<p>对于 <code>config</code> 中的属性 <code>foo</code>, 框架还会为其自动生成 <code>applyFoo()</code> 和 <code>updateFoo()</code> 方法，这两个方法分别作为 <code>setFoo()</code> 的前置和后置方法被调用，具体使用说明可参考相应API文档。 </p>
+<h3 id="4-Statics_和_InheritableStatics">4.Statics 和 InheritableStatics</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Computer'</span>, &#123;</span><br><span class="line">    statics: &#123;</span><br><span class="line">        factory: <span class="function"><span class="keyword">function</span>(<span class="params">brand</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// `this` 指向类本身</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">this</span>(brand);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    constructor: <span class="function"><span class="keyword">function</span>(<span class="params">brand</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.brand = brand || <span class="string">''</span>;</span><br><span class="line">    &#125;，</span><br><span class="line">    foo: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// `this.statics()` 可以引用到当前类</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> thinkComputer = Computer.factory(<span class="string">'Thinkpad'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(thinkComputer.brand); <span class="comment">// Thinkpad</span></span><br></pre></td></tr></table></figure>
+<p>关于静态方法，你需要知道：</p>
+<ol>
+<li>在statics方法中，<code>this</code> 指向类本身;</li>
+<li>在其它成员方法中，<code>this.statics()</code> 可以引用到当前类；</li>
+<li>statics对象中的属性/方法，不会被 <code>extend</code> 或 <code>mixin</code>，如有此需求，可使用 <code>InheritableStatics</code> .</li>
+</ol>
+<h3 id="5-Mixins">5.Mixins</h3><p>ExtJS 提供了掺和模式的实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'CanSing'</span>, &#123;</span><br><span class="line">    sing: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"I'm on the highway to hell..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Ext.define(<span class="string">'Musician'</span>, &#123;</span><br><span class="line">    mixins: [<span class="string">'CanSing'</span>],</span><br><span class="line">    eat: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Everyone is able to eat."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Musician().eat(); <span class="comment">// Everyone is able to eat.</span></span><br><span class="line"><span class="keyword">new</span> Musician().sing(); <span class="comment">// I'm on the highway to hell...</span></span><br></pre></td></tr></table></figure>
+<p>你应该通过掺和模式合理的拆分一些较大的类，将其中可共用的行为方法拆分出去。例如你在设计一个Web界面模板类，它可以保存新数据，也可以删除已有数据，另外还有可能会包含数据修改、数据导入导出、查询检索等等一系列操作。你当然可以设计一个大而全的类来实现所有功能，如果某一特殊场景中不需要“导入导出”功能则通过子类将对应功能入口“弱化”掉。这个设计很糟糕，维护这个大类会让人疯狂，尤其面对新的功能扩展时。</p>
+<p>聪明一些的办法则可以通过继承层级划分，在基类中实现“基本功能”并在子类中扩展其它功能。然而我们的例子中如何划分子类呢？它有太多可能的功能组合。你肯定已经想到，掺和模式可以解决此类问题。</p>
+<p><code>mixins</code> 背后的思想即是通过<strong>聚合</strong>而非继承的方式为某类型扩展行为能力。<br>Java 开发人员理应对此极为熟悉。使用 Golang 的开发人员可以将其理解为结构体的嵌入。</p>
+<p>下面展示一个稍复杂的例子，更多的用法希望你通过API文档自行学习：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Jqueryable'</span>, &#123;</span><br><span class="line">    skill: <span class="string">'jQuery'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Ext.define(<span class="string">'Extjsable'</span>, &#123;</span><br><span class="line">    skill: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'ExtJS'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Ext.define(<span class="string">'Seajsable'</span>, &#123;</span><br><span class="line">    cmd: <span class="string">'Seajs'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Ext.define(<span class="string">'JavaScripter'</span>, &#123;</span><br><span class="line">    extend: <span class="string">'Programmer'</span>,</span><br><span class="line">    constructor: <span class="function"><span class="keyword">function</span> (<span class="params">skilled</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.skilled = skilled || <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">this</span>.callParent([<span class="string">'JavaScript'</span>]);</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    mixins: &#123;</span><br><span class="line">        writejQuery: <span class="string">'Jqueryable'</span>,</span><br><span class="line">        writeExtjs: <span class="string">'Extjsable'</span>,</span><br><span class="line">        writeSeajs: <span class="string">'Seajsable'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    skill: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> [</span><br><span class="line">            <span class="keyword">this</span>.code(),</span><br><span class="line">            <span class="string">'I am good at '</span>,</span><br><span class="line">            <span class="keyword">this</span>.mixins.writejQuery.skill,</span><br><span class="line">            <span class="string">','</span>,</span><br><span class="line">            <span class="keyword">this</span>.mixins.writeExtjs.skill(),</span><br><span class="line">            <span class="string">','</span>,</span><br><span class="line">            <span class="keyword">this</span>.mixins.writeSeajs.cmd,</span><br><span class="line">            <span class="string">'.'</span></span><br><span class="line">        ].join(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> lisi = <span class="keyword">new</span> JavaScripter(<span class="string">'ExtJS'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(lisi.skill());</span><br><span class="line"><span class="comment">// I'm coding in JavaScript.I am good at jQuery,ExtJS,Seajs.</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-保留私有作用域空间">6.保留私有作用域空间</h3><p>接下来要展示的代码你应该一看就明白它的用意为何，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Foo'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// nested scope</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="comment">// properties</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>类似的代码结构在使用 ExtJS 之前，你已经无数次使用了。通过给 <code>Ext.define</code> 第二个参数传函数参数的方式，可以在函数中保留私有作用域空间。如果返回对象的属性中包含override等需要预处理的类，必须将上面的函数改为立即执行的方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Foo'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// nested scope</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        override: <span class="string">'Ext.Component'</span>,</span><br><span class="line">        <span class="comment">// properties</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>唯一需要再次好心叮嘱你的是，使用这种方式一定要注意保证函数造成的闭包空间中，引用到的任何变量一定要能够在合适的时机被GC处理。</p>
+<p>来看一个该用法的示例(注意函数中传入了参数)：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Bar'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">bar</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        statics: &#123;</span><br><span class="line">            id: <span class="number">0</span>,</span><br><span class="line">            nextId: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> ++bar.id;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// properties</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Bar.nextId()); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(Bar.nextId()); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-定义匿名类">7.定义匿名类</h3><p>可能没太大用处，<code>Ext.define</code> 可以用来定义匿名类，将类名设为 <code>null</code> 即可：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Foo = Ext.define(<span class="literal">null</span>, &#123;</span><br><span class="line">    constructor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">'[ anonymous class ]'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> Foo().name); <span class="comment">// [ anonymous class ]</span></span><br></pre></td></tr></table></figure>
+<h3 id="8-单例模式">8.单例模式</h3><p>只需将 <code>singleton</code> 属性设置为 <code>true</code> 即可： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Logger'</span>, &#123;</span><br><span class="line">    singleton: <span class="literal">true</span>,</span><br><span class="line">    log: <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="9-覆盖">9.覆盖</h3><p>通过 <code>override</code> 属性可以替换掉父类的方法，也可以为其增加新方法(详细的用法请参考API文档，毕竟本教程并非为了介绍API文档而作)。值得一提的是，它有一些很实用的场景，例如，拆分巨大的类 ： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在定义巨大的类时，可以只定义一些基础属性config、statics</span></span><br><span class="line"><span class="comment">// 以及一些基础的成员方法等</span></span><br><span class="line">Ext.define(<span class="string">'MyLargeClass'</span>, &#123;</span><br><span class="line">    constructor: <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.initConfig(config);</span><br><span class="line">    &#125;,</span><br><span class="line">    config: &#123;</span><br><span class="line">        name: <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将MyLargeClass的方法分类，一部分方法放到part1中</span></span><br><span class="line">Ext.define(<span class="string">'MyLargeClass.part1'</span>, &#123;</span><br><span class="line">    override: <span class="string">'MyLargeClass'</span>,</span><br><span class="line">    constructor: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.callParent(<span class="built_in">arguments</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    jump: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">' jumps!'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    code: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">' is coding in javascript!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 另一部分方法放到part2中</span></span><br><span class="line">Ext.define(<span class="string">'MyLargeClass.part2'</span>, &#123;</span><br><span class="line">    override: <span class="string">'MyLargeClass'</span>,</span><br><span class="line">    sing: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">' sings a song!'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 一般情况下应该避免像code方法这种多次覆盖的现象</span></span><br><span class="line">    code: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">' is coding in java!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> largeClass = <span class="keyword">new</span> MyLargeClass(&#123;name: <span class="string">'ZhangSan'</span>&#125;);</span><br><span class="line">largeClass.jump(); <span class="comment">// ZhangSan jumps!</span></span><br><span class="line">largeClass.sing(); <span class="comment">// ZhangSan sings a song!</span></span><br><span class="line">largeClass.code(); <span class="comment">// ZhangSan is coding in java!</span></span><br></pre></td></tr></table></figure>
+<p>实际应用时，当一个类方法特别特别特别多时(巨大的类)，可以进行合理拆分。同时，结合动态类加载机制，将不同的部分part1、part2放在不同的JS源文件中，主类定义中使用 <code>requires</code> 引用所有的部分。</p>
+<p><code>Ext.define</code> 还提供了定义别名、动态加载、定义向下兼容的类名等多种功能用法，不再一一叙述。</p>
+<h2 id="深入一些">深入一些</h2><p>ExtJS 类系统提供了这么多花哨的功能，怎么实现的呢？下面的内容我将带着你一步一步深入学习 ExtJS 类系统的实现过程。</p>
+<p>ExtJS 在定义类的时候，基本思路为：</p>
+<ol>
+<li>提供一个基类 <code>Ext.Base</code>，所有类继承自此，在此类中定义所有类共有的属性(function对象的属性，亦即所谓静态属性)；</li>
+<li>提供 <code>Ext.Class</code> 类，完成类定义后的前置处理；</li>
+<li>提供 <code>Ext.ClassManager</code> 单例，负责管理框架内的类。Ext.define方法的实际实现也源于此，同时实际的后置处理方法也在此实现；</li>
+<li>提供 <code>Ext.Loader</code> 单例，负责类的动态加载。同时，加载相关的前置处理方法在此实现。</li>
+</ol>
+<p>动态加载的内容将单独讲解，不在此讨论。</p>
+<p>我剥离出实现类定义的<strong>骨干代码</strong>，先来看看：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Ext = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mkCtor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">constructor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.constructor.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>) || <span class="literal">null</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ext.Class = <span class="function"><span class="keyword">function</span> (<span class="params">Class</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Class;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Ext.ClassManager = &#123;</span><br><span class="line">    create: <span class="function"><span class="keyword">function</span> (<span class="params">className</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> ctor = mkCtor();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Ext.Class(ctor);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Ext.define = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Ext.ClassManager.create.apply(Ext.ClassManager, <span class="built_in">arguments</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.dir(Ext.define(<span class="string">'Foo'</span>));</span><br></pre></td></tr></table></figure>
+<p>控制台将打印出：</p>
+<p><img src="classsystem_02.png" alt="classsystem_02"></p>
+<p>从代码中可以看出， <code>Ext.define</code> 通过调用 <code>Ext.ClassManager.create</code> 方法，实际生成的是 <code>Ext.Class</code> 的实例，即 <code>new Ext.Class(ctor);</code>。而根据 <code>new</code> 操作符的特性，当创建 Ext.Class 时实际创建的将是传入的函数对象，即执行 <code>makeCtor()</code> 后生成的 <strong>constructor</strong> 函数对象。</p>
+<p>于是可以知道，ExtJS 类系统实质上创建的都是 <code>makeCtor</code> 函数中的 <code>constructor</code> 对象，其内部只是继续调用当前(this)配置中的 constructor 属性所指向的函数，这么做的好处便是：所得到的 constructor 的原生链非常干净，没有其它多余的属性，同时便于在这一过程中为生成的对象增加属性、做预处理等。</p>
+<p>明白了以上基础代码结构，现在来加个 <code>Ext.Base</code> 类，同时我们实现一个极度简化版的 <code>addMembers</code> 方法(该方法的使用说明参见API文档)和私有属性 <code>$isClass</code> ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Ext.Base = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">Ext.Base.$isClass = <span class="literal">true</span>;</span><br><span class="line">Ext.Base.addMembers = <span class="function"><span class="keyword">function</span> (<span class="params">members</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i, member;</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> members) &#123;</span><br><span class="line">        <span class="keyword">if</span> (members.hasOwnProperty(i)) &#123;</span><br><span class="line">            member = members[i];</span><br><span class="line">            <span class="keyword">this</span>.prototype[i] = member;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>接下来改造一下 <code>Ext.Class</code> ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Ext.Class = <span class="function"><span class="keyword">function</span> (<span class="params">Class, data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name;</span><br><span class="line">    <span class="keyword">for</span> (name <span class="keyword">in</span> Ext.Base) &#123;</span><br><span class="line">        <span class="keyword">if</span> (Ext.Base.hasOwnProperty(name)) &#123;</span><br><span class="line">            Class[name] = Ext.Base[name];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Class;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>执行代码，控制台将打印出：</p>
+<p><img src="classsystem_03.png" alt="classsystem_03"></p>
+<p>现在，我们的 <code>Foo</code> 类已经获取到 <code>Ext.Base</code> 中的方法了。改变打印输出代码，来用一下新方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Foo = Ext.define(<span class="string">'Foo'</span>);</span><br><span class="line">Foo.addMembers(&#123;</span><br><span class="line">    name: <span class="string">'foo name'</span>,</span><br><span class="line">    foo: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'I\'m foo'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.dir(Foo);</span><br></pre></td></tr></table></figure>
+<p>可以看到结果如下，我们成功地给 <code>Foo</code> 增加了原型方法：</p>
+<p><img src="classsystem_04.png" alt="classsystem_04"></p>
+<p>现在把 <code>addMembers</code> 放到我们的框架代码内部调用，并增加 <code>$className</code> 属性，以此表示我们已经有能力按需要扩展所定义的类的属性，于是得到如下<strong>相对完整的代码</strong> ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Ext = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mkCtor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">constructor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.constructor.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>) || <span class="literal">null</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ext.Base = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">Ext.Base.$isClass = <span class="literal">true</span>;</span><br><span class="line">Ext.Base.addMembers = <span class="function"><span class="keyword">function</span> (<span class="params">members</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i, member;</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> members) &#123;</span><br><span class="line">        <span class="keyword">if</span> (members.hasOwnProperty(i)) &#123;</span><br><span class="line">            member = members[i];</span><br><span class="line">            <span class="keyword">this</span>.prototype[i] = member;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Ext.Class = <span class="function"><span class="keyword">function</span> (<span class="params">Class, data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name;</span><br><span class="line">    <span class="keyword">for</span> (name <span class="keyword">in</span> Ext.Base) &#123;</span><br><span class="line">        <span class="keyword">if</span> (Ext.Base.hasOwnProperty(name)) &#123;</span><br><span class="line">            Class[name] = Ext.Base[name];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Class.addMembers(data);  <span class="comment">//  &lt;-----------</span></span><br><span class="line">    <span class="keyword">return</span> Class;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Ext.ClassManager = &#123;</span><br><span class="line">    create: <span class="function"><span class="keyword">function</span> (<span class="params">className, data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> ctor = mkCtor();</span><br><span class="line">        data &amp;&amp; (data.$className = className);  <span class="comment">//  &lt;-----------</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Ext.Class(ctor, data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Ext.define = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Ext.ClassManager.create.apply(Ext.ClassManager, <span class="built_in">arguments</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.dir(Ext.define(<span class="string">'Foo'</span>, &#123;</span><br><span class="line">    name: <span class="string">'foo name'</span>,</span><br><span class="line">    foo: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'I\'m foo'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>结果如我们所愿：</p>
+<p><img src="classsystem_05.png" alt="classsystem_05"></p>
+<h3 id="预处理器">预处理器</h3><p>现在我们已经有了 ExtJS 类系统基本的代码结构，并能为生成的类提供附加的属性。那么，<code>Ext.define</code> 中诸多的功能特性又是怎么实现的呢，例如 <code>extend</code> 、<code>statics</code>、<code>mixins</code> 等？答案就是：预处理器。</p>
+<p>ExtJS 的预处理器分为 <strong>前置处理器</strong> (在类构造前做一些事情)和 <strong>后置处理器</strong> (在类构造成功后正式使用前做一些事情)。前置处理器放在 <code>Ext.Class</code> 对象中，后置处理器放在 <code>Ext.ClassManager</code> 对象中。如果你熟悉 Nodejs 的 Express 框架或是 Python 的 django 框架，ExtJS 预处理器的设计理念对你来说 so easy, 来看看吧。</p>
+<p>我们先来自己实现它。预处理器至少需要三部分组成：</p>
+<ol>
+<li>盛放处理器的容器</li>
+<li>注册处理器的方法</li>
+<li>执行处理器具体处理过程的方法</li>
+</ol>
+<p>先来解决第一个问题：我们用数组 <code>[]</code> 表示容器，用形如 <code>{name: &#39;处理器名称&#39;, fn: 执行的处理方法}</code> 的对象表示一个处理器。容器就分别叫做 <code>preprocessors</code> 和 <code>postprocessors</code> 吧。之后，注册方法就对应地叫做 <code>registerPreprocessor</code> 和 <code>registerPostprocessor</code> ; 执行方法叫 <code>doPreprocessor</code> 和 <code>doPostprocessor</code> 。</p>
+<p>我说了这么多废话，你一看前置处理器的骨干代码，发现“原来如此简单”：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Ext.Class.preprocessors = [];</span><br><span class="line">Ext.Class.registerPreprocessor = <span class="function"><span class="keyword">function</span> (<span class="params">name, fn</span>) </span>&#123;</span><br><span class="line">    Ext.Class.preprocessors.push(&#123;</span><br><span class="line">        name: name,</span><br><span class="line">        fn: fn</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line">Ext.Class.doPreprocessor = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i, len,</span><br><span class="line">        pre = Ext.Class.preprocessors;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, len = pre.length; i &lt; len; ++i) &#123;</span><br><span class="line">        pre[i].fn.call(Ext.Class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们在 <code>ExtClass</code> 中加个 <code>preprocessors</code> 数组，注册方法是往数组里放处理器，执行方法则是把数组里的所有处理器取出来调用一下。就是这么简单！对应的后置处理器完全相同：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Ext.ClassManager.postprocessors = [];</span><br><span class="line">Ext.ClassManager.registerPostprocessor = <span class="function"><span class="keyword">function</span> (<span class="params">name, fn</span>) </span>&#123;</span><br><span class="line">    Ext.ClassManager.postprocessors.push(&#123;</span><br><span class="line">        name: name,</span><br><span class="line">        fn: fn</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;  </span><br><span class="line">Ext.ClassManager.doPostprocessor = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i, len,</span><br><span class="line">        post = Ext.ClassManager.postprocessors;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, len = post.length; i &lt; len; ++i) &#123;</span><br><span class="line">        post[i].fn.call(Ext.Class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>处理器有了，调用一下吧。现在改造 <code>Ext.Class</code> ，把已有的代码移到 <code>create</code> 方法中，并为其增加 <code>onCreated</code> 参数，以便回调后置处理器：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Ext.Class = <span class="function"><span class="keyword">function</span> (<span class="params">Class, data, onCreated</span>) </span>&#123;</span><br><span class="line">    Ext.Class.create(Class, data);</span><br><span class="line">    Ext.Class.doPreprocessor(Class, data);      <span class="comment">// &lt;----------</span></span><br><span class="line">    Class.addMembers(data);</span><br><span class="line">    onCreated.call(Class, Class);               <span class="comment">// &lt;----------</span></span><br><span class="line">    <span class="keyword">return</span> Class;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Ext.Class.create = <span class="function"><span class="keyword">function</span> (<span class="params">Class, data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name;</span><br><span class="line">    <span class="keyword">for</span> (name <span class="keyword">in</span> Ext.Base) &#123;</span><br><span class="line">        <span class="keyword">if</span> (Ext.Base.hasOwnProperty(name)) &#123;</span><br><span class="line">            Class[name] = Ext.Base[name];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>相应地，加上后置回调函数并在其中调用后置处理器的执行方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Ext.ClassManager.create = <span class="function"><span class="keyword">function</span> (<span class="params">className, data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> ctor = mkCtor();</span><br><span class="line">    data &amp;&amp; (data.$className = className);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Ext.Class(ctor, data, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        Ext.ClassManager.doPostprocessor();   <span class="comment">// &lt;----------</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>就是这么简单，快注册几个处理器试试吧：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Ext.Class.registerPreprocessor(<span class="string">'jump'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'I can jump high!'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">Ext.Class.registerPreprocessor(<span class="string">'swim'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'I can swim fast!'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">Ext.ClassManager.registerPostprocessor(<span class="string">'rest'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'I have to take a break!'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Ext.define(<span class="string">'Qiang'</span>);</span><br></pre></td></tr></table></figure>
+<p>此时可以看到，当我们定义一个新类( <code>&#39;Qiang&#39;</code> )时，各预处理器被执行：</p>
+<p><img src="classsystem_06.png" alt="classsystem_06"></p>
+<p>其实，ExtJS 实现前置处理器和后置处理器的过程是非常复杂的，不过思路却极为简单，正如我们刚刚看到的。在我们的代码基础上，还可以增加很多辅助方法，例如，调整已注册的处理器顺序、增加更多的钩子方法、注册事件并触发等等。事实上 ExtJS 正是这么做的，它还为我们提供了很多优秀的处理器，不像我们的示例代码只是粗糙的 <code>console.log</code> ，它们非常强大，它们正是之前介绍的 <code>Ext.define</code> 诸多功能的实际实现：</p>
+<p><img src="classsystem_07.png" alt="classsystem_07"></p>
+<h2 id="就此结束了吗？">就此结束了吗？</h2><p>还不够，我们应该只处理用户指定的处理器，如下面的调用只执行 <code>swim</code> 处理器：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">'Swimmer'</span>, &#123;</span><br><span class="line">    swim: <span class="string">'very fast!'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>另外，<code>Ext.define</code> 创建出的类，只是通过字符串静态指定的类名，我们还应该把它放入全局变量中，同时为其处理好命名空间问题，以便可以直接调用它。</p>
+<p>还有一大堆需要实现的 API 方法，还有无数的细节需要处理。</p>
+<p>我对 ExtJS 系统的讲解结束了，而我希望对你仅仅是开始，希望我的分析讲解可以帮你更深入地理解 ExtJS 类系统，更便于你理解它的源码，更便于你使用、扩展它。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ExtJS核心概念系列文章/" rel="tag">#ExtJS核心概念系列文章</a>
+          
+            <a href="/tags/extjs/" rel="tag">#extjs</a>
+          
+            <a href="/tags/javascript/" rel="tag">#javascript</a>
+          
+            <a href="/tags/web/" rel="tag">#web</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/709201507/" rel="prev">ExtJS 核心概念 - 组件的生命周期</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+
+          <div class="comments" id="comments">
+            <div id="q_share">  
+
+<style type="text/css">
+.bdsharebuttonbox a {
+	border-bottom: none;
+}
+</style>
+<div style="color:#999;">
+    <span id="busuanzi_container_page_pv">
+    	本文已被阅读
+    	<span id="busuanzi_value_page_pv"></span>
+    	次，若是感觉写得还不错就分享一下 :)
+    </span>
+</div>
+<div class="bdsharebuttonbox">
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="bds_more" data-cmd="more"></a>
+</div>
+<script>
+window._bd_share_config = {
+	"common": { 
+		"bdSnsKey": {},
+		"bdText": "",
+		"bdMini": "2",
+		"bdMiniList": [
+			"mshare", "weixin","renren",
+			"tqf","tieba","douban","sqq","youdao",
+		],
+		"bdPic":"",
+		"bdStyle":"1",
+		"bdSize":"24"
+	},
+	"share":{}
+};
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+ </div>
+            
+              <div class="ds-thread" data-thread-key="posts/626201506/"
+                   data-title="ExtJS 核心概念 - 类系统" data-url="http://zhangqiang.work/posts/626201506/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpeg" alt="绿豆爸爸" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">绿豆爸爸</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Le vent se lève, il faut tenter de vivre. <br/>起风了，唯有努力生存。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ssbunny" target="_blank">github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://coding.net/u/zhangqiang" target="_blank">coding.net</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.kyletang.work" target="_blank">唐老师的博客</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统方式"><span class="nav-text">传统方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ExtJS的方式"><span class="nav-text">ExtJS的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ext-define的用法"><span class="nav-text">Ext.define的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-定义一个类"><span class="nav-text">1.定义一个类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-继承"><span class="nav-text">2.继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Config"><span class="nav-text">3.Config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Statics_和_InheritableStatics"><span class="nav-text">4.Statics 和 InheritableStatics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Mixins"><span class="nav-text">5.Mixins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-保留私有作用域空间"><span class="nav-text">6.保留私有作用域空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-定义匿名类"><span class="nav-text">7.定义匿名类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-单例模式"><span class="nav-text">8.单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-覆盖"><span class="nav-text">9.覆盖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入一些"><span class="nav-text">深入一些</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预处理器"><span class="nav-text">预处理器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#就此结束了吗？"><span class="nav-text">就此结束了吗？</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">绿豆爸爸</span>
+  <span>&nbsp;&nbsp;&nbsp;(感谢 Github 、 Hexo 、 NexT 的支持。）</span>
+</div>
+
+<div>
+  <span id="busuanzi_container_site_pv">
+    您是本站的第 <span style="color:green" id="busuanzi_value_site_uv"></span> 位访客，
+    我可怜的博客已被猛戳了 <span style="color:green" id="busuanzi_value_site_pv"></span> 下。
+  </span>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ssbunny"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>
