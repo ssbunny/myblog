@@ -176,6 +176,290 @@
           
           
             
+              <a class="post-title-link" href="/posts/1214201512/" itemprop="url">
+                Redis 中的数据结构：简单动态字符串（SDS）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-14T16:25:56+08:00" content="2015-12-14">
+            2015-12-14
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Coding/" itemprop="url" rel="index">
+                  <span itemprop="name">Coding</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/posts/1214201512/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="posts/1214201512/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+            Redis 底层使用 SDS (Simple Dynamic Strings) 作为字符串类型的存储方式之一，其结构非常简单，直接看源码即可了解个大概：
+1234567typedef char *sds;struct sdshdr &#123;    unsigned int len;    uns
+            ...
+          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/posts/1214201512/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/posts/1210201512/" itemprop="url">
+                Ajax 是否是独立线程中的异步请求？
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-10T15:53:57+08:00" content="2015-12-10">
+            2015-12-10
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Coding/" itemprop="url" rel="index">
+                  <span itemprop="name">Coding</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/posts/1210201512/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="posts/1210201512/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+            刚刚脑子中突然间产生的一个疑问，使用了这么久的 Ajax 技术，是不是独立线程中的异步请求 ？也就是说，浏览器是否会为它开启一个独立的线程发起请求，并在成功后执行回调函数。整个过程应该是非阻塞的。
+通常我们知道 setTimeout 函数会将执行代码压入下一次 Event Loop 中执行：
+123
+            ...
+          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/posts/1210201512/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/posts/1207201512/" itemprop="url">
+                Redis 持久化方案
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-07T09:30:55+08:00" content="2015-12-07">
+            2015-12-07
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Coding/" itemprop="url" rel="index">
+                  <span itemprop="name">Coding</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/posts/1207201512/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="posts/1207201512/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+            Redis 中提供了不同的持久化选项：
+
+RDB 会定时地保存数据集快照；
+AOF 记录下服务器收到的每一条“写”操作，并在服务启动时通过依次执行这些操作重建数据集。AOF 文件过大时，Redis 会对其重写；
+可以关闭持久化功能，使数据仅保存在内存中；
+同时开启 RDB 和 AOF 。服务重启时会
+            ...
+          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/posts/1207201512/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/posts/1206201512/" itemprop="url">
                 花式馒头
               </a>
@@ -197,8 +481,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Enjoying/" itemprop="url" rel="index">
-                  <span itemprop="name">Enjoying</span>
+                <a href="/categories/Cooking/" itemprop="url" rel="index">
+                  <span itemprop="name">Cooking</span>
                 </a>
               </span>
 
@@ -299,8 +583,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Enjoying/" itemprop="url" rel="index">
-                  <span itemprop="name">Enjoying</span>
+                <a href="/categories/Cooking/" itemprop="url" rel="index">
+                  <span itemprop="name">Cooking</span>
                 </a>
               </span>
 
@@ -491,8 +775,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Enjoying/" itemprop="url" rel="index">
-                  <span itemprop="name">Enjoying</span>
+                <a href="/categories/Cooking/" itemprop="url" rel="index">
+                  <span itemprop="name">Cooking</span>
                 </a>
               </span>
 
@@ -593,8 +877,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Enjoying/" itemprop="url" rel="index">
-                  <span itemprop="name">Enjoying</span>
+                <a href="/categories/Cooking/" itemprop="url" rel="index">
+                  <span itemprop="name">Cooking</span>
                 </a>
               </span>
 
@@ -695,8 +979,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Enjoying/" itemprop="url" rel="index">
-                  <span itemprop="name">Enjoying</span>
+                <a href="/categories/Cooking/" itemprop="url" rel="index">
+                  <span itemprop="name">Cooking</span>
                 </a>
               </span>
 
@@ -848,297 +1132,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/posts/1030201510/" itemprop="url">
-                Java8特性 - Lambda表达式
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-30T08:41:43+08:00" content="2015-10-30">
-            2015-10-30
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Coding/" itemprop="url" rel="index">
-                  <span itemprop="name">Coding</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/posts/1030201510/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="posts/1030201510/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-            Lambda表达式并不是什么新概念，Java8中引入它主要解决只有单一方法的匿名类使用起来过于丑陋、晦涩的问题。不说废话。假设有这样一个对象：
-123456789101112131415161718public class Person &#123;    public enum Sex &#123
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/posts/1030201510/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/posts/1019201510/" itemprop="url">
-                编程基本原则汇总
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-19T15:48:35+08:00" content="2015-10-19">
-            2015-10-19
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Coding/" itemprop="url" rel="index">
-                  <span itemprop="name">Coding</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/posts/1019201510/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="posts/1019201510/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-            整理一些公认的编程基本原则。
-KISS
-Keep It Simple Stupid
-
-要注重简约。
-YAGNI
-you aren’t gonna need it
-
-在确实需要某功能之前，不要依靠预测去实现它。
-DRY
-Don’t Repeat Yourself
-
-不要编写重复代码，将业务规则、公式、
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/posts/1019201510/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/posts/1015201510/" itemprop="url">
-                Docker 架构
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-15T15:08:49+08:00" content="2015-10-15">
-            2015-10-15
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Coding/" itemprop="url" rel="index">
-                  <span itemprop="name">Coding</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/posts/1015201510/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="posts/1015201510/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-            Docker 采用 C/S 架构。Docker client 和 Docker daemon 通信，以创建、运行或发布容器。可以将 Docker daemon 运行在本机或远程主机，client 和 daemon 通过 sockets 或 RESTful API 交互。
-1. Docker核心
-Do
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/posts/1015201510/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1177,7 +1170,7 @@ Do
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">28</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
