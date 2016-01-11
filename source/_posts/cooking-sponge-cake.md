@@ -1,6 +1,6 @@
 title: 海绵蛋糕
 date: 2015-11-20 08:46:11
-categories: Enjoying
+categories: Cooking
 tags:
  - 烘焙
  - 育儿
