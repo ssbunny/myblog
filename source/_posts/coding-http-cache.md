@@ -8,9 +8,9 @@ tags:
  - cache
 ---
 
+
 <style type="text/css">.posts-expand .post-body img{border:0;}</style>
 
-<iframe height=498 width=510 src="http://player.youku.com/embed/XMTM4OTI4MzM2NA==" frameborder=0 allowfullscreen></iframe>
 
 做一下 HTTP 缓存相关知识点的总结。
 
