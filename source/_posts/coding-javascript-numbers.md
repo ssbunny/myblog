@@ -18,15 +18,13 @@ $ node -p process.versions.v8
 
 或
 
-```
-Safari 版本 9.0 (11601.1.56)
-```
+    Safari 版本 9.0 (11601.1.56)
 
 ## 1. 数字字面值也是对象
 
 在 JavaScript 中，数字的字面值也是对象。可以使用它直接调用方法：
 
-```js
+```javascript
 $ 3.1415926.toFixed(4)
 '3.1416'
 ```
@@ -37,7 +35,7 @@ $ 3.1415926.toFixed(4)
 
 克服这种情况非常简单，有下面三种方法：
 
-```js
+```javascript
 123..toString();
 123 .toString();
 (123).toString();
@@ -48,7 +46,7 @@ $ 3.1415926.toFixed(4)
 ### 2.1. NaN
 `NaN` 代表“不是一个数字”，而它的类型却是 `number` 。实际使用中，它通常产生自——从表单取数据并转换成数字类型：
 
-```js
+```javascript
 var age = document.getElementById('age').value;
 Number(age); // 用户输入 'abc' 时此处则为 `NaN`
 ```
@@ -71,7 +69,7 @@ true
 
 然而此方法会尝试将其参数动态转换成 `number` 类型再判断，因此对于 `string` 或 `object` 等类型的检测，它通常会返回 `true` :
 
-```js
+```javascript
 isNaN('xyz');    // true
 isNaN(['abc']);  // true
 isNaN({});       // true
@@ -81,7 +79,7 @@ isNaN([123]);    // false
 
 为了正确的检测出 `NaN` 可以使用一个小技巧，它基于这样一个事实：目前只有 `NaN` 是不等于自身的对象：
 
-```js
+```javascript
 function isRealNaN (x) {
     return x !== x;
 }
@@ -92,7 +90,7 @@ console.log(isRealNaN('foo')); // false
 
 更为正统的方式是这样的：
 
-```js
+```javascript
 function isRealNaN (x) {
     return typeof x === 'number' && isNaN(x);
 }
@@ -104,7 +102,7 @@ function isRealNaN (x) {
 
 `Infinity` 实际开发中出现的频率似乎并不高。它代表无穷大，对应的还有 `-Infinity` 代表无穷小。看几个例子即可：
 
-```js
+```javascript
 123 / 0              // Infinity
 Infinity + 1         // Infinity
 Infinity + Infinity  // Infinity
@@ -115,7 +113,7 @@ Infinity - Infinity  // NaN
 
 1) 整数位数超过 21 位时显示成科学计数法：
 
-```js
+```javascript
 $ 1234567890123456789012
 1.2345678901234568e+21
 
@@ -125,7 +123,7 @@ $ 123456789012345678901
 
 2) 以 `0.` 开头，后面跟着超过 5 个零时，显示成科学计数法：
 
-```js
+```javascript
 $ 0.0000001
 1e-7
 
@@ -139,7 +137,7 @@ $ 0.000001
 
 如果你有一定的 JavaScript 开发经验，一定遇到过浮点数算不准确的问题：
 
-```js
+```javascript
 $ 0.1 + 0.2 === 0.3
 false
 
@@ -149,7 +147,7 @@ false
 
 然而事情似乎并不只是发生在浮点数身上：
 
-```js
+```javascript
 $ 9007199254740992 + 1
 9007199254740992
 
@@ -174,7 +172,7 @@ $ (1234567890123456789012).toFixed(2)
 
 由于浮点数精度问题，`toFixed()` 方法实际上只能正确做到“四舍六入”，对于“五”，它的处理看上去并不那么精确：
 
-```js
+```javascript
 $ 1.105.toFixed(2)
 '1.10'
 ```
@@ -186,22 +184,21 @@ $ 1.105.toFixed(2)
 
 然而这也并不准确，可以参考下面的结果：
 
-```
-1.105   '1.10'
-1.115   '1.11'
-1.125   '1.13'
-1.135   '1.14'
-1.145   '1.15'
-1.155   '1.16'
-1.165   '1.17'
-1.175   '1.18'
-1.185   '1.19'
-1.195   '1.20'
-```
+    1.105   '1.10'
+    1.115   '1.11'
+    1.125   '1.13'
+    1.135   '1.14'
+    1.145   '1.15'
+    1.155   '1.16'
+    1.165   '1.17'
+    1.175   '1.18'
+    1.185   '1.19'
+    1.195   '1.20'
+
 
 有种比较流行的**修正方法**：
 
-```js
+```javascript
 function myToFixed(value, precision) {
     precision = precision || 0;
     var pow = Math.pow(10, precision);
@@ -211,22 +208,21 @@ function myToFixed(value, precision) {
 
 它的计算结果看上去准确多了：
 
-```
-1.105   '1.11'
-1.115   '1.12'
-1.125   '1.13'
-1.135   '1.14'
-1.145   '1.15'
-1.155   '1.16'
-1.165   '1.17'
-1.175   '1.18'
-1.185   '1.19'
-1.195   '1.20'
-```
+    1.105   '1.11'
+    1.115   '1.12'
+    1.125   '1.13'
+    1.135   '1.14'
+    1.145   '1.15'
+    1.155   '1.16'
+    1.165   '1.17'
+    1.175   '1.18'
+    1.185   '1.19'
+    1.195   '1.20'
+
 
 然而这个世界对程序员并没有那么善意：
 
-```js
+```javascript
 console.log(myToFixed(2.135, 2));
 // 输出 2.13
 ```
@@ -237,7 +233,7 @@ console.log(myToFixed(2.135, 2));
 
 JavaScript 中缺少产生随机整数的方法，但是可以用 `Math.random()` 自行实现。参考代码如下：
 
-```js
+```javascript
 function nextInt(n) {
     var ret = parseInt(Math.random() * n);
     if (ret > n || ret < 0 ) {
@@ -249,7 +245,7 @@ function nextInt(n) {
 
 产生的随机数分布的还算均匀。使用如下代码测试：
 
-```js
+```javascript
 function test(x) {
     var foo = {};
     for (var i = 10000 - 1; i >= 0; i--) {

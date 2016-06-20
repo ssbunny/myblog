@@ -9,9 +9,6 @@ tags:
 ---
 
 
-<style type="text/css">.posts-expand .post-body img{border:0;}</style>
-
-
 做一下 HTTP 缓存相关知识点的总结。
 
 ### 1. 缓存命中
@@ -46,10 +43,8 @@ IMS请求：`If-Modified-Since` 再验证请求。只有自某个日期之后资
 
 强弱验证器：只要内容发生变化，强验证器就会变化；内容的主要含义发生变化时，弱验证器会变化。服务器会用 `W/` 前缀来标识弱验证器。
 
-````
-ETag: W/"v2.6"
-If-None-Match: W/"v2.6"
-````
+	ETag: W/"v2.6"
+	If-None-Match: W/"v2.6"
 
 如果服务器回送了一个 `ETag` ，HTTP1.1客户端就必须使用实体标签验证器。如果服务器只回送一个 `Last-Modified` 值，客户端就可以使用 `If-Modified-Since` 验证。如果两种方式都提供，客户端应该使用两种再验证方式。
 
@@ -59,10 +54,9 @@ If-None-Match: W/"v2.6"
 * **Cache-Control: no-cache** ：响应可以存储在本地缓存区中。只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。
 * **Pragma: no-cache** ：兼容HTTP1.0+
 * **Cache-Control: max-age** ：从服务器将文档传来之时起，可以认为此文档处于新鲜状态的秒数。 `s-maxage` 表示仅适用于公有缓存。服务器可以将最大使用期设置为 0 ，从而在每次访问时都刷新。
-````
-Cache-Control: max-age=3600
-Cache-Control: s-maxage=3600
-````
+		Cache-Control: max-age=3600
+		Cache-Control: s-maxage=3600
+
 * **Expires** ：(不推荐使用) 指定实际的过期日期。HTTP设计者后来认为服务器时钟不同步或不正确，
 所以最好还是使用剩余秒数来表示过期时间。
 * **Cache-Control: must-revalidate** ：缓存在事先没有跟原始服务器进行再验证的情况下，
@@ -73,13 +67,13 @@ Cache-Control: s-maxage=3600
 **附表： Cache-Control**
 
 | 指令                           | 目的                                               |
-|:------------------------------ |:-------------------------------------------------- |
+|:------------------------------ |:--------------------------------------------- |
 | Cache-Control: max-stale       | 缓存可以随意提供过期文件(放松缓存规则)             |
 | Cache-Control: max-stale=s     | 在时间 s 秒内，文档不能过期                        |
 | Cache-Control: min-fresh=s     | 至少在未来 s 秒内文档要保持新鲜(严格规则)          |
 | Cache-Control: max-age=s       | 缓存无法返回缓存时间长于 s 秒的文档(严格规则)      |
 | Cache-Control: no-cache        | 除非资源进行了再验证，否则客户端不接受已缓存的资源 |
-| Pragma: no-cache               | HTTP/1.0+ 同上                                     |
+| Pragma: no-cache               | HTTP/1.0+ 同上                               |
 | Cache-Control: no-store        | 缓存应该尽快从存储器中删除文档的所有痕迹           |
 | Cache-Control: only-if-cached  | 只有当缓存中有副本存在时，客户端才会获取一份副本   |
 
