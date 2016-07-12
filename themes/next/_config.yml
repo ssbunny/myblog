@@ -29,10 +29,10 @@ canonical: true
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
   home: /
-  categories: /categories
-  #about: /about
   archives: /archives
+  categories: /categories
   tags: /tags
+  #about: /about
   #commonweal: /404.html
 
 
@@ -72,7 +72,7 @@ scheme: Pisces
 # - Introduce in 5.0.1
 # ---------------------------------------------------------------
 font:
-  enable: true
+  enable: false
 
   # Uri of fonts host. E.g. //fonts.googleapis.com (Default)
   host:
@@ -122,8 +122,10 @@ font:
 #social:
   #LinkLabel: Link
 social:
-  github: https://github.com/ssbunny
-  #coding.net: https://coding.net/u/zhangqiang
+  Github: https://github.com/ssbunny
+  Weibo: http://weibo.com/grub2
+  Coding: https://coding.net/u/zhangqiang
+  Twitter: https://twitter.com/_QiangZH_
 
 # Social Links Icons
 # Icon Mapping:
@@ -134,7 +136,11 @@ social_icons:
   enable: true
   # Icon Mappings.
   # KeyMapsToSocalItemKey: NameOfTheIconFromFontAwesome
-  github: github
+  Github: github
+  Coding: code
+  Weibo: weibo
+  Twitter: twitter
+
 
 
 avatar: /images/avatar_q.jpg
@@ -242,42 +248,16 @@ baidu_analytics: 219062a13ded246daaa92ec44ebc0fa8
 # Duoshuo ShortName
 duoshuo_shortname: ssbunny
 
-# Disqus
-#disqus_shortname:
-
-# Baidu Share
-# Available value:
-#    button | slide
-#baidushare:
-#  type: button
-
-# Share
-#jiathis:
-#add_this_id:
-
-# Share
-#duoshuo_share: true
-
-# Google Webmaster tools verification setting
-# See: https://www.google.com/webmasters/
-#google_site_verification:
-
-
-# Google Analytics
-#google_analytics:
-
-# CNZZ count
-#cnzz_siteid:
-
+duoshuo_share: true
 
 # Make duoshuo show UA
 # user_id must NOT be null when admin_enable is true!
 # you can visit http://dev.duoshuo.com get duoshuo user id.
 duoshuo_info:
   ua_enable: true
-  admin_enable: false
-  user_id: 0
-  #admin_nickname: Author
+  admin_enable: true
+  user_id: 13527402
+  admin_nickname: 作者
 
 
 # Facebook SDK Support.
